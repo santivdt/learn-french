@@ -1,5 +1,6 @@
 import styles from './menu.module.css'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Menu() {
 
@@ -15,9 +16,27 @@ export default function Menu() {
                     />
                 </span>
                  <ul className={styles.ulContainer}>
-                     <li className={styles.item}>Home</li>
-                     <li className={styles.item}>About</li>
-                     <li className={styles.item}>Edit data</li>
+                     <li className={styles.item}>
+                         <Link href='/'>
+                             <a>
+                                Home
+                            </a>
+                         </Link>
+                     </li>
+                     <li className={styles.item}>
+                         <Link href='/about'>
+                             <a>
+                                 About
+                             </a>
+                         </Link>
+                     </li>
+                     <li className={styles.item}>
+                         <Link href='/editdata'>
+                             <a>
+                                Edit data
+                             </a>
+                         </Link>
+                     </li>
                  </ul>
             </div>
         </div>
