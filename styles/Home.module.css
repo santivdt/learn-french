@@ -104,6 +104,9 @@
   transition: width 2s;
 }
 
-.showNormal {
-
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

@@ -66,7 +66,7 @@ export default function Home() {
     }
 
     const showLatin = () => {
-        const showNormalFalse = memoryStatus.map(o => ({ ...o, showNormal: false }));
+        const showNormalFalse = memoryStatus.map(o => ({ ...o, showNormal: false }))
         return (
             setMemoryStatus(showNormalFalse),
             setWhichOne(false)
@@ -74,24 +74,33 @@ export default function Home() {
     }
 
     const showNormal = () => {
-        const showNormalTrue = memoryStatus.map(o => ({ ...o, showNormal: true }));
+        const showNormalTrue = memoryStatus.map(o => ({ ...o, showNormal: true }))
         return (
             setMemoryStatus(showNormalTrue),
             setWhichOne(true)
     )
     }
 
+    const resetCards = () => {
+        if (whichOne) {
+            const setAllTrue = memoryStatus.map(o => ({ ...o, showNormal: true }))
+            return setMemoryStatus(setAllTrue)
+        } else {
+            const setAllFalse = memoryStatus.map(o => ({ ...o, showNormal: false }))
+            return setMemoryStatus(setAllFalse)
+        }
+    }
+
+
+
     return (
     <Layout pageTitle="home">
-
-
-
-          <div className={styles.container}>
+        <div className={styles.buttonContainer}>
               {whichOne &&  <p> <button
                   onClick={showLatin}
                   className={button}
               >
-                  Laat latijnse namen zien
+                  Latijn
               </button>
               </p>
               }
@@ -99,10 +108,17 @@ export default function Home() {
                   onClick={showNormal}
                   className={button}
               >
-                  Laat Normale namen zien
+                      Normaal
               </button>
               </p>
               }
+              <button
+                  className={button}
+                  onClick={resetCards}
+              >
+                  Reset cards
+              </button>
+        </div>
               <div className={styles.container}>
 
                   {memoryStatus.map((item, index) => {
@@ -122,7 +138,6 @@ export default function Home() {
                       )
                   })}
               </div>
-          </div>
     </Layout>
 
 

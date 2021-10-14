@@ -1,6 +1,8 @@
 import styles from './menu.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from "next/router";
+
 
 export default function Menu() {
 
@@ -18,21 +20,23 @@ export default function Menu() {
                  <ul className={styles.ulContainer}>
                      <li className={styles.item}>
                          <Link href='/'>
-                             <a>
+                             <a
+                                 className={styles.link}
+                             >
                                 Home
                             </a>
                          </Link>
                      </li>
                      <li className={styles.item}>
                          <Link href='/about'>
-                             <a>
+                             <a className={styles.link}>
                                  About
                              </a>
                          </Link>
                      </li>
                      <li className={styles.item}>
                          <Link href='/editdata'>
-                             <a>
+                             <a className={styles.link}>
                                 Edit data
                              </a>
                          </Link>
