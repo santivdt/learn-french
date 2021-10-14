@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import React, { useState } from "react"
 import {button} from '../styles/Button.module.css'
+import Layout from '../components/layout/layout.js'
 
 
 
@@ -23,7 +24,7 @@ export default function Home() {
         {name: 'Groot Afrikaantje', latinName: 'Tagetes Erecta', showNormal: true},
         {name: 'Staande geranium', latinName: 'Pelargonium zonate', showNormal: true},
         {name: 'Vuursalie', latinName: 'Salvia splendens', showNormal: true},
-        {name: 'Kattenstaart amarant', latinName: 'Amaranthus caudatus', showNormal: true},
+        {name: 'Kattenstaart', latinName: 'Amaranthus caudatus', showNormal: true},
         {name: 'Waterbegonia', latinName: 'Begonia semperflorens', showNormal: true},
         {name: 'Oost indische kers', latinName: 'Tropacolum majus', showNormal: true},
         {name: 'Lavendel', latinName: 'Lanvedula angustifolia', showNormal: true},
@@ -81,40 +82,29 @@ export default function Home() {
     }
 
     return (
-    <div className={styles.container}>
-      <Head>
-        <title>Ken je Bomenp</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Ken je plantjes!
-        </h1>
-
-        <p className={styles.description}>
-          Op naar professional hovenier-life
-        </p>
-          {whichOne &&  <p> <button
-              onClick={showLatin}
-              className={button}
-          >
-              Laat latijnse namen zien
-          </button>
-          </p>
-          }
-          {!whichOne &&  <p> <button
-              onClick={showNormal}
-              className={button}
-          >
-              Laat Normale namen zien
-          </button>
-          </p>
-          }
+    <Layout pageTitle="home">
 
 
-          <div className={styles.outerContainer}>
+
+          <div className={styles.container}>
+              {whichOne &&  <p> <button
+                  onClick={showLatin}
+                  className={button}
+              >
+                  Laat latijnse namen zien
+              </button>
+              </p>
+              }
+              {!whichOne &&  <p> <button
+                  onClick={showNormal}
+                  className={button}
+              >
+                  Laat Normale namen zien
+              </button>
+              </p>
+              }
               <div className={styles.container}>
+
                   {memoryStatus.map((item, index) => {
                       const flipSide = item.showNormal ? styles.showNormal : styles.showLatin
                       return (
@@ -133,11 +123,8 @@ export default function Home() {
                   })}
               </div>
           </div>
-      </main>
+    </Layout>
 
-      <footer className={styles.footer}>
-        Brought to you by Santi Development
-      </footer>
-    </div>
+
   )
 }

@@ -53,8 +53,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  /*color: yellow;*/
+  /*border-color: yellow;*/
 }
 
 .card p {
@@ -98,7 +98,9 @@
 }
 
 .showLatin {
-  background-color: lightblue;
+  background: rgb(244,192,240);
+  background: linear-gradient(165deg, rgba(244,192,240,0.47522759103641454) 0%, rgba(57,0,255,1) 100%);
+  color: white;
   transition: width 2s;
 }
 
