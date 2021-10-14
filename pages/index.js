@@ -1,8 +1,8 @@
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import React, { useState } from "react"
 import {button} from '../styles/Button.module.css'
 import Layout from '../components/layout/layout.js'
+import Button from '@material-ui/core/Button'
 
 
 
@@ -47,9 +47,7 @@ export default function Home() {
 
     const randomData = randomArrayShuffle(data)
 
-    const [memoryStatus, setMemoryStatus] = useState(
-        randomData
-    )
+    const [memoryStatus, setMemoryStatus] = useState(randomData)
 
     const [whichOne, setWhichOne] = useState(true)
 
@@ -91,33 +89,37 @@ export default function Home() {
         }
     }
 
-
-
     return (
     <Layout pageTitle="home">
         <div className={styles.buttonContainer}>
-              {whichOne &&  <p> <button
-                  onClick={showLatin}
+              {whichOne &&  <p>    <Button
+                  variant="contained"
+                  color="primary"
                   className={button}
+                  onClick={() => {showLatin()}}
               >
-                  Latijn
-              </button>
+                  Show Latin
+              </Button>
               </p>
               }
-              {!whichOne &&  <p> <button
-                  onClick={showNormal}
+              {!whichOne &&  <p>    <Button
+                  variant="contained"
+                  color="primary"
                   className={button}
+                  onClick={() => {showNormal()}}
               >
-                      Normaal
-              </button>
+                  Show Normal
+              </Button>
               </p>
               }
-              <button
-                  className={button}
-                  onClick={resetCards}
-              >
-                  Reset cards
-              </button>
+            <Button
+                variant="contained"
+                color="primary"
+                className={button}
+                onClick={() => {resetCards()}}
+            >
+                Reset cards
+            </Button>
         </div>
               <div className={styles.container}>
 
