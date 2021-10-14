@@ -12,3 +12,7 @@
     flex-direction: column;
     background-color: red;
 }
+
+.main {
+    margin-top: 40px;
+}

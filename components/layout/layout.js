@@ -13,7 +13,7 @@ export default function Layout({pageTitle, children}) {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <Menu/>
-            <main>
+            <main className={styles.main}>
                 {children}
             </main>
             <Footer />

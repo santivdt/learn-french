@@ -4,8 +4,6 @@ import {button} from '../styles/Button.module.css'
 import Layout from '../components/layout/layout.js'
 import Button from '@material-ui/core/Button'
 
-
-
 export default function Home() {
 
     const randomArrayShuffle = (array) => {
@@ -121,25 +119,25 @@ export default function Home() {
                 Reset cards
             </Button>
         </div>
-              <div className={styles.container}>
+        <div className={styles.container}>
 
-                  {memoryStatus.map((item, index) => {
-                      const flipSide = item.showNormal ? styles.showNormal : styles.showLatin
-                      return (
+              {memoryStatus.map((item, index) => {
+                  const flipSide = item.showNormal ? styles.showNormal : styles.showLatin
+                  return (
 
-                          <div
-                              className={`${styles.card} ${flipSide}`}
-                              key={index}
-                              onClick={() => handleChange(index)}
-                          >
-                            <span>
-                                {item.showNormal && <p>{item.name}</p>}
-                                {!item.showNormal && <p>{item.latinName}</p>}
-                            </span>
-                          </div>
-                      )
-                  })}
-              </div>
+                      <div
+                          className={`${styles.card} ${flipSide}`}
+                          key={index}
+                          onClick={() => handleChange(index)}
+                      >
+                        <span>
+                            {item.showNormal && <p>{item.name}</p>}
+                            {!item.showNormal && <p>{item.latinName}</p>}
+                        </span>
+                      </div>
+                  )
+              })}
+        </div>
     </Layout>
 
 
