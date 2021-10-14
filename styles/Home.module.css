@@ -55,6 +55,7 @@
 .card:active {
   /*color: yellow;*/
   /*border-color: yellow;*/
+  cursor: pointer;
 }
 
 .card p {
