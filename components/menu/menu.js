@@ -15,6 +15,7 @@ export default function Menu() {
                     src="/../public/tree.png"
                     height={50}
                     width={50}
+                    alt="tree"
                     />
                 </span>
                  <ul className={styles.ulContainer}>
