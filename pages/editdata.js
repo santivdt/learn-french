@@ -66,7 +66,6 @@ export default function Editdata() {
                     </TableBody>
                 </Table>
             </TableContainer>
-
         </Layout>
     )
 }
