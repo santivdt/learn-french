@@ -2,12 +2,28 @@ import styles from '../styles/Home.module.css'
 import React, { useState } from "react"
 import {button} from '../styles/Button.module.css'
 import Layout from '../components/layout/layout.js'
-import Button from '@material-ui/core/Button'
+import { createTheme } from '@material-ui/core/styles'
+import { data } from '../data/data'
+import {
+    Switch,
+    Button,
+    Box,
+    Card,
+    CardActions,
+    CardContent,
+    Typography,
+    CardHeader,
+    Avatar,
+    IconButton,
+    CardMedia,
+    Collapse
+} from "@material-ui/core"
+
 
 export default function Home() {
 
     const randomArrayShuffle = (array) => {
-        var currentIndex = array.length, temporaryValue, randomIndex;
+        let currentIndex = array.length, temporaryValue, randomIndex;
         while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
@@ -17,31 +33,6 @@ export default function Home() {
         }
         return array;
     }
-
-    const data = [
-        {name: 'Groot Afrikaantje', latinName: 'Tagetes Erecta', showNormal: true},
-        {name: 'Staande geranium', latinName: 'Pelargonium zonate', showNormal: true},
-        {name: 'Vuursalie', latinName: 'Salvia splendens', showNormal: true},
-        {name: 'Kattenstaart', latinName: 'Amaranthus caudatus', showNormal: true},
-        {name: 'Waterbegonia', latinName: 'Begonia semperflorens', showNormal: true},
-        {name: 'Oost indische kers', latinName: 'Tropacolum majus', showNormal: true},
-        {name: 'Lavendel', latinName: 'Lanvedula angustifolia', showNormal: true},
-        {name: 'Kattenkruid', latinName: 'Nepeta faassenii', showNormal: true},
-        {name: 'Kogeldistel', latinName: 'Echiniops bannaticus', showNormal: true},
-        {name: 'Hemelsleutel', latinName: 'Sedum herbstfreude', showNormal: true},
-        {name: 'Snooty', latinName: 'Trichechus', showNormal: true},
-        {name: 'Zomereik', latinName: 'Quercus robur', showNormal: true},
-        {name: 'Chinese treurwilg', latinName: 'Salix babylonica', showNormal: true},
-        {name: 'Kleinbladige klimop', latinName: 'Hedera helix', showNormal: true},
-        {name: 'Zachte berk', latinName: 'Betula pubescens', showNormal: true},
-        {name: 'Treurwilg', latinName: 'Salix sepulcralis', showNormal: true},
-        {name: 'Hollandse linde', latinName: 'Tilia europaea', showNormal: true},
-        {name: 'Okkernoot', latinName: 'Juglans regia', showNormal: true},
-        {name: 'Gewone esdoorn', latinName: 'Acer pseudoplatanus', showNormal: true},
-        {name: 'Noorse esdoorn', latinName: 'Acer platanoides', showNormal: true},
-        {name: 'Spaanse aak', latinName: 'Acer campestre', showNormal: true},
-        {name: 'Beuk', latinName: 'Fagus sylvatica', showNormal: true},
-    ]
 
     const randomData = randomArrayShuffle(data)
 
