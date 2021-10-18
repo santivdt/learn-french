@@ -42,6 +42,13 @@ export default function Menu() {
                              </a>
                          </Link>
                      </li>
+                     <li className={styles.item}>
+                         <Link href='/quiz'>
+                             <a className={styles.link}>
+                                Quiz
+                             </a>
+                         </Link>
+                     </li>
                  </ul>
             </div>
         </div>
