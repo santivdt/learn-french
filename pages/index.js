@@ -24,7 +24,6 @@ export default function Home() {
 
 
     const randomShuffleArray = (array) => {
-        console.log('=================Random shuffle array initiatied=====================')
         let currentIndex = array.length, temporaryValue, randomIndex
         while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex)
@@ -36,14 +35,10 @@ export default function Home() {
         return array
     }
     
-
-    // werkt niet, geen idee waarom niet
     const changeOrder = () => {
-        console.log('Change Order initiated')
-        console.log('data zou staande geranium moeten zijn', memoryOrder[0].name)
-        const newData = randomShuffleArray(memoryOrder)
-        console.log('newdata name zou elke keer anders moeten zijn', newData[0].name)
-        // setMemoryOrder(newData)
+        const copyOfMemoryOrder = [...memoryOrder]
+        randomShuffleArray(copyOfMemoryOrder)
+        setMemoryOrder(copyOfMemoryOrder)
     }
 
     const handleChange = (position) => {
