@@ -108,6 +108,7 @@ export default function Home() {
                                 src={item.img}
                                 width="100px"
                                 height="100px"
+                                alt={item.name}
                             />}
                             <span>
                                 <center>
