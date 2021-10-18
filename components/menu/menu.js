@@ -12,7 +12,7 @@ export default function Menu() {
                 <span className={styles.logo}>
                     <Image
                     priority
-                    src="/../public/tree.png"
+                    src="https://campaigntool.nl/bomen/tree.png"
                     height={50}
                     width={50}
                     alt="tree"
