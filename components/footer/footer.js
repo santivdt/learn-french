@@ -1,7 +1,3 @@
 export default function Footer() {
-    return (
-        <div>
-            Brought to you by Santi Development
-        </div>
-    )
+    return <div>Brought to you by Santi Development</div>
 }

@@ -11,13 +11,13 @@ import {
     Paper,
     Button,
     TextField,
-    Grid
+    Grid,
 } from '@mui/material'
 
 export default function Editdata() {
     return (
         <Layout>
-            <Grid container justifyContent="space-between" sx={{mb: 8}}>
+            <Grid container justifyContent="space-between" sx={{ mb: 8 }}>
                 <TextField
                     id="standard-basic"
                     label="Search"

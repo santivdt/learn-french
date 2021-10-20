@@ -20,9 +20,7 @@ export default function Header() {
                 </Typography>
                 <Grid container justifyContent="space-around">
                     <Grid item sx={{ ml: 6, mr: 4 }}>
-                        <Link href="/about">
-                          About
-                        </Link>
+                        <Link href="/about">About</Link>
                     </Grid>
                     <Grid item sx={{ ml: 4 }}>
                         <Link href="/quiz">Quiz</Link>
