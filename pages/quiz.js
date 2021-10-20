@@ -2,8 +2,7 @@ import Layout from '../components/layout/layout'
 import {data} from '../data/data.js'
 import Image from 'next/image'
 import React, {useState} from "react"
-import Button from '@material-ui/core/Button'
-import {button} from "../styles/Button.module.css"
+import { Button } from '@mui/material'
 
 export default function Quiz() {
 

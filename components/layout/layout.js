@@ -1,24 +1,29 @@
-import Menu from '../menu/menu.js'
-import Head from 'next/head'
-import styles from './layout.module.css'
-import Footer from '../footer/footer.js'
+import { Grid } from "@mui/material";
+import Header from "../header/header";
+import Footer from "../footer/footer";
+import { ThemeProvider } from "@mui/private-theming";
+import { theme } from "../theme.js";
 
-
-export default function Layout({pageTitle, children}) {
-
-    return (
-        <div className={styles.outerContainer} >
-            <Head>
-                <title>De Bomen App</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
-            <Menu/>
-            <main className={styles.main}>
-                {children}
-            </main>
-            <Footer />
-        </div>
-    )
-
-
+export default function Layout({ children }) {
+  return (
+    <ThemeProvider theme={theme}>
+      <Grid container direction="column" justifyContent="space=between">
+        <Grid item>
+          <Header />
+        </Grid>
+        <Grid item container>
+          <Grid item xs={0} sm={2} />
+          <Grid item xs={12} sm={8}>
+            <Grid container direction="row" sx={{ mt: 3 }} justifyContent="center">
+              {children}
+            </Grid>
+          </Grid>
+          <Grid item xs={0} sm={2} />
+        </Grid>
+        <Grid item>
+          {/* <Footer /> */}
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
 }
