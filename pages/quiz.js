@@ -33,9 +33,16 @@ export default function Quiz() {
         data[currentItem].name,
         data[getRandomInt(data.length)].latinName,
         data[getRandomInt(data.length)].latinName,
-        data[getRandomInt(data.length)].latinName,
-        data[getRandomInt(data.length)].latinName,
     ]
+
+    const checkUniqueAnswerOptions = () => {
+        if(answerOptionArray[1] == answerOptionArray[2]) {
+            answerOptionArray[2] = data[getRandomInt(data.length)].latinName
+            checkUniqueAnswerOptions()
+        } else {
+            return
+        }
+    }
 
     const copyOfAnswerOptionArray = [...answerOptionArray]
     randomShuffleArray(copyOfAnswerOptionArray)
