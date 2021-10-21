@@ -1,9 +1,88 @@
-import { Grid, Typography, Toolbar, AppBar, IconButton } from '@mui/material'
-import { Nature } from '@mui/icons-material'
+import {
+    Typography,
+    Toolbar,
+    AppBar,
+    IconButton,
+    Box,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Icon
+} from '@mui/material'
+import { Nature, Menu, Home, Info, Star, Edit} from '@mui/icons-material'
 import Link from 'next/Link'
+import { useState } from 'react'
 
 export default function Header() {
+    const [drawer, setDrawer] = useState(false)
+
+    const toggleDrawer = () => {
+        setDrawer(!drawer)
+    }
+
+    const menuItems = [
+        {
+            title: 'Home',
+            url: '/',
+            icon: (<Home/>)
+        },
+        {
+            title: 'About',
+            url: '/about',
+            icon: (<Info/>)
+        },
+        {
+            title: 'Quiz',
+            url: '/quiz',
+            icon: (<Star/>)
+        },
+        {
+            title: 'Edit Data',
+            url: '/editdata',
+            icon: (<Edit/>)
+        }
+    ]
+    
     return (
+        <>
+        <Drawer
+            anchor="left"
+            open={drawer}
+            onClose={toggleDrawer}
+        >
+         <Box 
+            sx={{minWidth: 250, bgColor: 'background.paper'}}
+            role="presentation"
+            onClick={toggleDrawer}
+            onKeyDown={toggleDrawer}
+        >
+            <List>
+                {
+                    menuItems.map((item, index) => {
+                        return (
+                            <Link
+                                key={index}
+                                href={item.url}
+                            >
+                                <ListItem
+                                button
+                                onClick={toggleDrawer}
+                            >
+                                <ListItemIcon>
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={item.title}/>
+
+                            </ListItem>
+                            </Link>
+                        )
+                    })
+                }
+            </List>
+         </Box>
+        </Drawer>
         <AppBar position="static" color="primary">
             <Toolbar>
                 <IconButton
@@ -11,25 +90,17 @@ export default function Header() {
                     size="large"
                     aria-label="tree"
                     sx={{ color: 'white' }}
+                    onClick={toggleDrawer}
                 >
-                    <Nature />
+                    <Link href="/">
+                        <Menu />
+                    </Link>
                 </IconButton>
-
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    B
+                    <Link href="/">B</Link>
                 </Typography>
-                <Grid container justifyContent="space-around">
-                    <Grid item sx={{ ml: 6, mr: 4 }}>
-                        <Link href="/about">About</Link>
-                    </Grid>
-                    <Grid item sx={{ ml: 4 }}>
-                        <Link href="/quiz">Quiz</Link>
-                    </Grid>
-                    <Grid item sx={{ ml: 4 }}>
-                        <Link href="/editdata">Edit data</Link>
-                    </Grid>
-                </Grid>
             </Toolbar>
         </AppBar>
+        </>
     )
 }
