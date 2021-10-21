@@ -1,13 +1,11 @@
 import { Grid } from '@mui/material'
 import Header from '../header/header'
 import Footer from '../footer/footer'
-import { ThemeProvider } from '@mui/private-theming'
-import santi from '../theme.js'
 
 export default function Layout({ children }) {
   
     return (
-        <ThemeProvider theme={santi}>
+        
             <Grid container direction="column" justifyContent="space=between">
                 <Grid item>
                     <Header />
@@ -28,6 +26,6 @@ export default function Layout({ children }) {
                 </Grid>
                 <Grid item>{/* <Footer /> */}</Grid>
             </Grid>
-        </ThemeProvider>
+        
     )
 }
