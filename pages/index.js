@@ -74,7 +74,7 @@ export default function Home() {
 
     return (
         <Layout>
-            <Grid container direction="column">
+            <Grid container direction="column" alignContent="center">
                 <Grid
                     item
                     sx="12"
@@ -111,12 +111,19 @@ export default function Home() {
                     />
                 </Grid>
             </Grid>
-            <Grid container direction="row">
+            <Grid container direction="row" justifyContent="center">
                 {memoryOrder.map((item, index) => {
                     return (
-                        <Card
-                            sx={{ minWidth: 250, minHeight: 250, m: 2 }}
+                        <Grid 
+                            item xs={8} 
+                            sm={4} 
+                            md={3} 
+                            lg={2} 
                             key={index}
+                        >
+                            <Card
+                            sx={{m: 2 }}
+                            
                         >
                             <CardContent>
                                 {!memoryStatus[index] && (
@@ -141,7 +148,8 @@ export default function Home() {
                                     {baseValue ? 'Show Img' : 'Show name'}
                                 </Button>
                             </CardActions>
-                        </Card>
+                            </Card>
+                        </Grid>
                     )
                 })}
             </Grid>
