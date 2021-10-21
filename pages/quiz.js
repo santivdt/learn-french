@@ -3,6 +3,7 @@ import { data } from '../data/data.js'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
+import { check } from 'prettier'
 
 export default function Quiz() {
     const [currentItem, setCurrentItem] = useState(0)
@@ -51,6 +52,7 @@ export default function Quiz() {
         if (currentItem + 1 < data.length) {
             const newCurrentItem = currentItem + 1
             setCurrentItem(newCurrentItem)
+            checkUniqueAnswerOptions()
         } else return
     }
 
@@ -77,12 +79,7 @@ export default function Quiz() {
     return (
         <Layout>
             <div>
-                <Image
-                    width="400px"
-                    height="400px"
-                    alt="test"
-                    src={data[currentItem].img}
-                />
+                
                 <h2>Welke plant zie je hier?</h2>
                 <h3>
                     Vraag {currentItem + 1} van {data.length}
@@ -91,6 +88,12 @@ export default function Quiz() {
                     <div>Je score is: {score}</div>
                 ) : (
                     <>
+                        <Image
+                    width="400px"
+                    height="400px"
+                    alt="test"
+                    src={data[currentItem].img}
+                />
                         {copyOfAnswerOptionArray.map((item, index) => {
                             return (
                                 <div key={index}>

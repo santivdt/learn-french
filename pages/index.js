@@ -122,7 +122,7 @@ export default function Home() {
                             key={index}
                         >
                             <Card
-                            sx={{m: 2 }}
+                            sx={{m: 2, minHeight: 200 }}
                             
                         >
                             <CardContent>
