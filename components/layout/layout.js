@@ -1,17 +1,28 @@
-import { Grid } from '@mui/material'
+import { Grid, Box } from '@mui/material'
 import Header from '../header/header'
-import Footer from '../footer/footer'
 
 export default function Layout({ children }) {
-  
     return (
-        
-            <Grid container direction="column" justifyContent="space=between">
+        <Box sx={{ backgroundColor: 'heellichtgroen.main' }}>
+            <Grid
+                container
+                direction="column"
+                justifyContent="space=between"
+                style={{
+                    border: 'solid',
+                    minWidth: '100%',
+                    height: '100vh',
+                }}
+            >
                 <Grid item>
                     <Header />
                 </Grid>
-                <Grid item container>
-                    <Grid item xs={0} sm={2} />
+                <Grid
+                    item
+                    container
+                    justifyContent="center"
+                    sx={{ flexGrow: 1 }}
+                >
                     <Grid item xs={12} sm={8}>
                         <Grid
                             container
@@ -22,10 +33,9 @@ export default function Layout({ children }) {
                             {children}
                         </Grid>
                     </Grid>
-                    <Grid item xs={0} sm={2} />
                 </Grid>
                 <Grid item>{/* <Footer /> */}</Grid>
             </Grid>
-        
+        </Box>
     )
 }

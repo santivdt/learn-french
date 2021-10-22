@@ -37,7 +37,7 @@ export default function Quiz() {
     ]
 
     const checkUniqueAnswerOptions = () => {
-        if(answerOptionArray[1] == answerOptionArray[2]) {
+        if (answerOptionArray[1] == answerOptionArray[2]) {
             answerOptionArray[2] = data[getRandomInt(data.length)].latinName
             checkUniqueAnswerOptions()
         } else {
@@ -79,7 +79,6 @@ export default function Quiz() {
     return (
         <Layout>
             <div>
-                
                 <h2>Welke plant zie je hier?</h2>
                 <h3>
                     Vraag {currentItem + 1} van {data.length}
@@ -89,11 +88,11 @@ export default function Quiz() {
                 ) : (
                     <>
                         <Image
-                    width="400px"
-                    height="400px"
-                    alt="test"
-                    src={data[currentItem].img}
-                />
+                            width="400px"
+                            height="400px"
+                            alt="test"
+                            src={data[currentItem].img}
+                        />
                         {copyOfAnswerOptionArray.map((item, index) => {
                             return (
                                 <div key={index}>

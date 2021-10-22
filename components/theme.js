@@ -6,15 +6,22 @@ const theme = createTheme({
             main: '#000',
         },
         secondary: {
-            main: '#FFC0CB',
+            main: '#088901',
         },
-        dgzBlauw: {
-            light: '#5DA8FB',
-            main: '#2D8CF6',
-            dark: '#0936D4',
+        blauw: {
+            main: '#06396B',
         },
-        dgzDark: {
-            main: '#0936D4',
+        donkergroen: {
+            main: '#389583',
+        },
+        lichtgroen: {
+            main: '#8DE4AF',
+        },
+        heellichtgroen: {
+            main: '#EEF4E0',
+        },
+        wittig: {
+            main: '#EEF4E0',
         },
     },
 })

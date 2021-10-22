@@ -114,40 +114,33 @@ export default function Home() {
             <Grid container direction="row" justifyContent="center">
                 {memoryOrder.map((item, index) => {
                     return (
-                        <Grid 
-                            item xs={8} 
-                            sm={4} 
-                            md={3} 
-                            lg={2} 
-                            key={index}
-                        >
-                            <Card
-                            sx={{m: 2, minHeight: 200 }}
-                            
-                        >
-                            <CardContent>
-                                {!memoryStatus[index] && (
-                                    <CardMedia
-                                        component="img"
-                                        src={item.img}
-                                        width="100px"
-                                        height="100px"
-                                        alt={item.name}
-                                    />
-                                )}
-                                <Typography>
-                                    {memoryStatus[index] ? item.latinName : ''}
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{ flexGrow: 1 }}>
-                                <Button
-                                    onClick={() => handleChange(index)}
-                                    size="small"
-                                    variant="contained"
-                                >
-                                    {baseValue ? 'Show Img' : 'Show name'}
-                                </Button>
-                            </CardActions>
+                        <Grid item xs={8} sm={4} md={3} lg={2} key={index}>
+                            <Card sx={{ m: 2, minHeight: 200 }}>
+                                <CardContent>
+                                    {!memoryStatus[index] && (
+                                        <CardMedia
+                                            component="img"
+                                            src={item.img}
+                                            width="100px"
+                                            height="100px"
+                                            alt={item.name}
+                                        />
+                                    )}
+                                    <Typography>
+                                        {memoryStatus[index]
+                                            ? item.latinName
+                                            : ''}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions sx={{ flexGrow: 1 }}>
+                                    <Button
+                                        onClick={() => handleChange(index)}
+                                        size="small"
+                                        variant="contained"
+                                    >
+                                        {baseValue ? 'Show Img' : 'Show name'}
+                                    </Button>
+                                </CardActions>
                             </Card>
                         </Grid>
                     )
