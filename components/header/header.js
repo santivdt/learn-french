@@ -10,6 +10,7 @@ import {
     ListItemIcon,
     ListItemText,
     Link as MUILink,
+    Grid,
 } from '@mui/material'
 import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
 import NextLink from 'next/Link'
@@ -78,9 +79,7 @@ export default function Header() {
                         sx={{ color: 'white' }}
                         onClick={toggleDrawer}
                     >
-                        <NextLink href="/">
-                            <Menu />
-                        </NextLink>
+                        <Menu />
                     </IconButton>
                     <Typography
                         variant="h6"

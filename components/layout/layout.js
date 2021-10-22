@@ -7,14 +7,12 @@ export default function Layout({ children }) {
             <Grid
                 container
                 direction="column"
-                justifyContent="space=between"
                 style={{
-                    border: 'solid',
                     minWidth: '100%',
                     height: '100vh',
                 }}
             >
-                <Grid item>
+                <Grid item sx={{ minWidth: '100%' }}>
                     <Header />
                 </Grid>
                 <Grid
@@ -22,19 +20,12 @@ export default function Layout({ children }) {
                     container
                     justifyContent="center"
                     sx={{ flexGrow: 1 }}
+                    alignItems="center"
                 >
-                    <Grid item xs={12} sm={8} alignSelf="center">
-                        <Grid
-                            container
-                            direction="row"
-                            sx={{ mt: 3 }}
-                            justifyContent="center"
-                        >
-                            {children}
-                        </Grid>
+                    <Grid item xs={10} sm={8} justifyContent="center">
+                        {children}
                     </Grid>
                 </Grid>
-                <Grid item>{/* <Footer /> */}</Grid>
             </Grid>
         </Box>
     )
