@@ -1,0 +1,13 @@
+.MuiCard-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.MuiCardActions-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 16px;
+}

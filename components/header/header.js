@@ -9,11 +9,11 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Icon,
 } from '@mui/material'
 import { Nature, Menu, Home, Info, Star, Edit } from '@mui/icons-material'
 import Link from 'next/Link'
 import { useState } from 'react'
+import styles from '../../styles/header.module.css'
 
 export default function Header() {
     const [drawer, setDrawer] = useState(false)
@@ -84,13 +84,11 @@ export default function Header() {
                     <Typography
                         variant="h6"
                         component="div"
-                        sx={{ flexGrow: 1 }}
-                        color="white"
+                        sx={{ flexGrow: 1, color: 'white' }}
                     >
                         <Link href="/">
-                            <a>B</a>
+                            <a className={styles.link}>B</a>
                         </Link>
-                        B
                     </Typography>
                 </Toolbar>
             </AppBar>

@@ -23,7 +23,7 @@ export default function Layout({ children }) {
                     justifyContent="center"
                     sx={{ flexGrow: 1 }}
                 >
-                    <Grid item xs={12} sm={8}>
+                    <Grid item xs={12} sm={8} alignSelf="center">
                         <Grid
                             container
                             direction="row"

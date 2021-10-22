@@ -13,6 +13,7 @@ import {
     CardMedia,
 } from '@mui/material'
 import image from 'next/image'
+import styles from '../styles/home.module.css'
 
 export default function Home() {
     const allFalse = new Array(data.length)
@@ -115,7 +116,15 @@ export default function Home() {
                 {memoryOrder.map((item, index) => {
                     return (
                         <Grid item xs={8} sm={4} md={3} lg={2} key={index}>
-                            <Card sx={{ m: 2, minHeight: 200 }}>
+                            <Card
+                                sx={{
+                                    m: 2,
+                                    minHeight: 200,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
                                 <CardContent>
                                     {!memoryStatus[index] && (
                                         <CardMedia
@@ -132,7 +141,15 @@ export default function Home() {
                                             : ''}
                                     </Typography>
                                 </CardContent>
-                                <CardActions sx={{ flexGrow: 1 }}>
+                                <CardActions
+                                    sx={{
+                                        flexGrow: 1,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'flex-end',
+                                        alignItems: 'flex-start',
+                                    }}
+                                >
                                     <Button
                                         onClick={() => handleChange(index)}
                                         size="small"
