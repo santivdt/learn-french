@@ -9,9 +9,10 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Link as MUILink,
 } from '@mui/material'
-import { Nature, Menu, Home, Info, Star, Edit } from '@mui/icons-material'
-import Link from 'next/Link'
+import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
+import NextLink from 'next/Link'
 import { useState } from 'react'
 import styles from '../../styles/header.module.css'
 
@@ -57,12 +58,12 @@ export default function Header() {
                     <List>
                         {menuItems.map((item, index) => {
                             return (
-                                <Link key={index} href={item.url}>
+                                <NextLink key={index} href={item.url}>
                                     <ListItem button onClick={toggleDrawer}>
                                         <ListItemIcon>{item.icon}</ListItemIcon>
                                         <ListItemText primary={item.title} />
                                     </ListItem>
-                                </Link>
+                                </NextLink>
                             )
                         })}
                     </List>
@@ -77,18 +78,20 @@ export default function Header() {
                         sx={{ color: 'white' }}
                         onClick={toggleDrawer}
                     >
-                        <Link href="/">
+                        <NextLink href="/">
                             <Menu />
-                        </Link>
+                        </NextLink>
                     </IconButton>
                     <Typography
                         variant="h6"
                         component="div"
                         sx={{ flexGrow: 1, color: 'white' }}
                     >
-                        <Link href="/">
-                            <a className={styles.link}>B</a>
-                        </Link>
+                        <NextLink href="/" passHref>
+                            <MUILink variant="h6" color="#FFF">
+                                Bravo
+                            </MUILink>
+                        </NextLink>
                     </Typography>
                 </Toolbar>
             </AppBar>
