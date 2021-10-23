@@ -3,14 +3,17 @@ import { data } from '../data/data.js'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import { check } from 'prettier'
+import QuizResultsTable from '../components/quizResultsTable'
 
 export default function Quiz() {
     const [currentItem, setCurrentItem] = useState(0)
     const [showScore, setShowScore] = useState(false)
     const [score, setScore] = useState(0)
+    const [answersGivenByUser, setAnswersGivenByUser] = useState([])
 
-    console.log(data)
+    console.log('ff kijken', answersGivenByUser)
+
+    const mappingData = data
 
     const getRandomInt = (einde) => {
         return Math.floor(Math.random() * einde)
@@ -31,7 +34,7 @@ export default function Quiz() {
     }
 
     const answerOptionArray = [
-        data[currentItem].name,
+        data[currentItem].latinName,
         data[getRandomInt(data.length)].latinName,
         data[getRandomInt(data.length)].latinName,
     ]
@@ -48,26 +51,17 @@ export default function Quiz() {
     const copyOfAnswerOptionArray = [...answerOptionArray]
     randomShuffleArray(copyOfAnswerOptionArray)
 
-    const nextQuestion = () => {
-        if (currentItem + 1 < data.length) {
-            const newCurrentItem = currentItem + 1
-            setCurrentItem(newCurrentItem)
-            checkUniqueAnswerOptions()
-        } else return
-    }
-
-    const prevQuestion = () => {
-        const newCurrentItem2 = currentItem - 1
-        setCurrentItem(newCurrentItem2)
-    }
-
-    const checkAnswer = (item) => {
-        if (data[currentItem].name == item) {
-            console.log('goed')
+    const handleAnswerGiven = (item) => {
+        // check if given answer is correct and change score
+        if (data[currentItem].latinName == item) {
             setScore(score + 1)
-            console.log('score nu: ', score)
         }
 
+        // add given answer to answers given
+        const newAnswersGivenByUser = [...answersGivenByUser, item]
+        setAnswersGivenByUser(newAnswersGivenByUser)
+
+        // check if there is a next question and go to NQ or score
         const nextItem = currentItem + 1
         if (nextItem < data.length) {
             setCurrentItem(nextItem)
@@ -79,12 +73,22 @@ export default function Quiz() {
     return (
         <Layout>
             <div>
-                <h2>Welke plant zie je hier?</h2>
-                <h3>
-                    Vraag {currentItem + 1} van {data.length}
-                </h3>
+                {!showScore && (
+                    <>
+                        <h2>Welke plant zie je hier?</h2>
+                        <h3>
+                            Vraag {currentItem + 1} van {data.length}
+                        </h3>
+                    </>
+                )}
                 {showScore ? (
-                    <div>Je score is: {score}</div>
+                    <div>
+                        <h2>Je score is: {score}</h2>
+                        <QuizResultsTable
+                            data={mappingData}
+                            answersGivenByUser={answersGivenByUser}
+                        />
+                    </div>
                 ) : (
                     <>
                         <Image
@@ -97,8 +101,10 @@ export default function Quiz() {
                             return (
                                 <div key={index}>
                                     <Button
+                                        variant="contained"
+                                        sx={{ mt: 2, minWidth: '100%' }}
                                         onClick={() => {
-                                            checkAnswer(item)
+                                            handleAnswerGiven(item)
                                         }}
                                     >
                                         {item}
@@ -109,27 +115,6 @@ export default function Quiz() {
                         })}
                     </>
                 )}
-
-                {/* {(currentItem > 0) ?
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={button}
-                        onClick={() => {prevQuestion()}}
-                    >
-                        Vorige
-                    </Button>
-                    : ''}
-                {(currentItem + 1 < data.length) ?
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={button}
-                        onClick={() => {nextQuestion()}}
-                    >
-                        Volgende
-                    </Button>
-                    : ''} */}
             </div>
         </Layout>
     )

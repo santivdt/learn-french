@@ -76,12 +76,7 @@ export default function Home() {
     return (
         <Layout>
             <Grid container direction="column" alignContent="center">
-                <Grid
-                    item
-                    sx="12"
-                    justifyContent="center"
-                    alignItems="space-betweens"
-                >
+                <Grid item justifyContent="center" alignSelf="center">
                     <Button
                         variant="contained"
                         color="secondary"
@@ -111,57 +106,65 @@ export default function Home() {
                         }}
                     />
                 </Grid>
-            </Grid>
-            <Grid container direction="row" justifyContent="center">
-                {memoryOrder.map((item, index) => {
-                    return (
-                        <Grid item xs={8} sm={4} md={3} lg={2} key={index}>
-                            <Card
-                                sx={{
-                                    m: 2,
-                                    minHeight: 200,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'space-between',
-                                }}
-                            >
-                                <CardContent>
-                                    {!memoryStatus[index] && (
-                                        <CardMedia
-                                            component="img"
-                                            src={item.img}
-                                            width="100px"
-                                            height="100px"
-                                            alt={item.name}
-                                        />
-                                    )}
-                                    <Typography>
-                                        {memoryStatus[index]
-                                            ? item.latinName
-                                            : ''}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions
+                <Grid
+                    item
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    className={styles.TEST}
+                >
+                    {memoryOrder.map((item, index) => {
+                        return (
+                            <Grid item xs={8} sm={4} md={3} lg={2} key={index}>
+                                <Card
                                     sx={{
-                                        flexGrow: 1,
+                                        m: 2,
+                                        minHeight: 200,
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        justifyContent: 'flex-end',
-                                        alignItems: 'flex-start',
+                                        justifyContent: 'space-between',
                                     }}
                                 >
-                                    <Button
-                                        onClick={() => handleChange(index)}
-                                        size="small"
-                                        variant="contained"
+                                    <CardContent>
+                                        {!memoryStatus[index] && (
+                                            <CardMedia
+                                                component="img"
+                                                src={item.img}
+                                                width="100px"
+                                                height="100px"
+                                                alt={item.name}
+                                            />
+                                        )}
+                                        <Typography>
+                                            {memoryStatus[index]
+                                                ? item.latinName
+                                                : ''}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'flex-end',
+                                            alignItems: 'flex-start',
+                                        }}
                                     >
-                                        {baseValue ? 'Show Img' : 'Show name'}
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    )
-                })}
+                                        <Button
+                                            onClick={() => handleChange(index)}
+                                            size="small"
+                                            variant="contained"
+                                        >
+                                            {baseValue
+                                                ? 'Show Img'
+                                                : 'Show name'}
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
             </Grid>
         </Layout>
     )
