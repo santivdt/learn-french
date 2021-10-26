@@ -11,8 +11,6 @@ export default function Quiz() {
     const [score, setScore] = useState(0)
     const [answersGivenByUser, setAnswersGivenByUser] = useState([])
 
-    console.log('ff kijken', answersGivenByUser)
-
     const mappingData = data
 
     const getRandomInt = (einde) => {
@@ -39,6 +37,7 @@ export default function Quiz() {
         data[getRandomInt(data.length)].latinName,
     ]
 
+    // does not work completely yet
     const checkUniqueAnswerOptions = () => {
         if (answerOptionArray[1] == answerOptionArray[2]) {
             answerOptionArray[2] = data[getRandomInt(data.length)].latinName
@@ -47,6 +46,8 @@ export default function Quiz() {
             return
         }
     }
+
+    checkUniqueAnswerOptions()
 
     const copyOfAnswerOptionArray = [...answerOptionArray]
     randomShuffleArray(copyOfAnswerOptionArray)
@@ -102,7 +103,7 @@ export default function Quiz() {
                                 <div key={index}>
                                     <Button
                                         variant="contained"
-                                        sx={{ mt: 2, minWidth: '100%' }}
+                                        sx={{ mt: 2 }}
                                         onClick={() => {
                                             handleAnswerGiven(item)
                                         }}

@@ -10,12 +10,10 @@ import {
     ListItemIcon,
     ListItemText,
     Link as MUILink,
-    Grid,
 } from '@mui/material'
 import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
-import NextLink from 'next/Link'
+import Link from 'next/Link'
 import { useState } from 'react'
-import styles from '../../styles/header.module.css'
 
 export default function Header() {
     const [drawer, setDrawer] = useState(false)
