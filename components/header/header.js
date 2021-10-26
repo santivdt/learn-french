@@ -11,7 +11,7 @@ import {
     ListItemText,
 } from '@mui/material'
 import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
-import { Link as NextLink } from 'next/Link'
+import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Header() {
