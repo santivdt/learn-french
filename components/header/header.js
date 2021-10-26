@@ -9,6 +9,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Link as MUILink,
 } from '@mui/material'
 import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
 import Link from 'next/link'
@@ -84,7 +85,9 @@ export default function Header() {
                         sx={{ flexGrow: 1, color: 'white' }}
                     >
                         <Link href="/" passHref>
-                            Bravo
+                            <MUILink variant="h6" color="#FFF">
+                                Bravo
+                            </MUILink>
                         </Link>
                     </Typography>
                 </Toolbar>
