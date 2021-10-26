@@ -12,7 +12,7 @@ import {
     Link as MUILink,
 } from '@mui/material'
 import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
-import Link from 'next/Link'
+import { Link as NextLink } from 'next/Link'
 import { useState } from 'react'
 
 export default function Header() {
