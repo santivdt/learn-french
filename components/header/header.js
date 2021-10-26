@@ -57,12 +57,12 @@ export default function Header() {
                     <List>
                         {menuItems.map((item, index) => {
                             return (
-                                <NextLink key={index} href={item.url}>
+                                <Link key={index} href={item.url}>
                                     <ListItem button onClick={toggleDrawer}>
                                         <ListItemIcon>{item.icon}</ListItemIcon>
                                         <ListItemText primary={item.title} />
                                     </ListItem>
-                                </NextLink>
+                                </Link>
                             )
                         })}
                     </List>
@@ -84,11 +84,11 @@ export default function Header() {
                         component="div"
                         sx={{ flexGrow: 1, color: 'white' }}
                     >
-                        <NextLink href="/" passHref>
+                        <Link href="/" passHref>
                             <MUILink variant="h6" color="#FFF">
                                 Bravo
                             </MUILink>
-                        </NextLink>
+                        </Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
