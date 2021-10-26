@@ -1,5 +1,5 @@
 import Layout from '../components/layout/layout.js'
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { data } from '../data/data'
 import {
     Table,
