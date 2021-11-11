@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 
 const clientCredentials = {
     apiKey: 'AIzaSyDsmSQJj8u4SQlA6sOZ1SYXtpGfNPyxATE',
