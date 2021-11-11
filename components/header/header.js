@@ -11,7 +11,7 @@ import {
     ListItemText,
     Link as MUILink,
 } from '@mui/material'
-import { Menu, Home, Info, Star, Edit } from '@mui/icons-material'
+import { Menu, Home, Info, Star, Edit, Add } from '@mui/icons-material'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -42,6 +42,11 @@ export default function Header() {
             title: 'Edit Data',
             url: '/editdata',
             icon: <Edit />,
+        },
+        {
+            title: 'Add Data',
+            url: '/adddata',
+            icon: <Add />,
         },
     ]
 

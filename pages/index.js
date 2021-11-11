@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/layout.js'
 import { data } from '../data/data'
-import Image from 'next/image'
 import {
     Switch,
     Button,
@@ -12,19 +11,36 @@ import {
     CardActions,
     CardMedia,
 } from '@mui/material'
-import image from 'next/image'
 import styles from '../styles/home.module.css'
+import initFirebase from '../firebase/initFirebase.js'
+import firebase from 'firebase'
 
 export default function Home() {
-    const allFalse = new Array(data.length)
-    const allTrue = new Array(data.length)
+    const [plants, setPlants] = useState([])
 
-    allFalse.fill(false)
-    allTrue.fill(true)
+    useEffect(() => {
+        initFirebase()
+        const getPlants = async () => {
+            let response = []
+            const querySnapshot = await firebase
+                .firestore()
+                .collection('plants')
+                .get()
+            querySnapshot.forEach((doc) => {
+                response.push(doc.data())
+            })
+
+            setPlants(response)
+        }
+        getPlants()
+    }, [])
+
+    const allFalse = new Array(plants.length).fill(false)
+    const allTrue = new Array(plants.length).fill(true)
 
     const [memoryStatus, setMemoryStatus] = useState(allFalse)
     const [baseValue, setBaseValue] = useState(false)
-    const [memoryOrder, setMemoryOrder] = useState(data)
+    const [memoryOrder, setMemoryOrder] = useState(plants)
 
     const randomShuffleArray = (array) => {
         let currentIndex = array.length,
@@ -138,7 +154,7 @@ export default function Home() {
                                         <Typography>
                                             {memoryStatus[index]
                                                 ? item.latinName
-                                                : ''}
+                                                : ''}{' '}
                                         </Typography>
                                     </CardContent>
                                     <CardActions
