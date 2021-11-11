@@ -33,6 +33,7 @@ export default function Home() {
             setPlants(response)
         }
         getPlants()
+        setMemoryOrder(plants)
     }, [])
 
     const allFalse = new Array(plants.length).fill(false)
