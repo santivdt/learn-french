@@ -213,6 +213,7 @@ export default function Editdata() {
                                             variant="outlined"
                                             color="secondary"
                                             onClick={() => handleRemove(key)}
+                                            disabled={currentlyEditing}
                                         >
                                             <span className="material-icons">
                                                 delete
