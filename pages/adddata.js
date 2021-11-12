@@ -1,7 +1,9 @@
 import Layout from '../components/layout/layout.js'
 import { useState } from 'react'
 import firebase from 'firebase'
-import { Button, TextField, Grid, Typography } from '@mui/material'
+import { Button, TextField, Grid, Typography, Snackbar } from '@mui/material'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
 
 export default function Editdata() {
     const [newItem, setNewItem] = useState({
@@ -9,16 +11,20 @@ export default function Editdata() {
         latinName: '',
     })
 
-    const [status, setStatus] = useState()
+    const [status, setStatus] = useState({ open: false, text: '' })
 
-    const getData = () => {
-        firebase
-            .firestore()
-            .collection('plants')
-            .onSnapshot((doc) => {
-                console.log(doc.data())
-            })
-    }
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </>
+    )
 
     const addData = async () => {
         try {
@@ -32,10 +38,10 @@ export default function Editdata() {
                     time_stamp: firebase.firestore.Timestamp.now(),
                 })
                 .then(
-                    setStatus('Your item was added to the database!'),
-                    setTimeout(() => {
-                        setStatus('')
-                    }, 2000),
+                    setStatus({ open: true, text: 'Your item was added!' }),
+                    // setTimeout(() => {
+                    //     setStatus({ open: false, text: '' })
+                    // }, 2000),
                     setNewItem({
                         name: '',
                         latinName: '',
@@ -57,6 +63,10 @@ export default function Editdata() {
         }
     }
 
+    const handleClose = () => {
+        setStatus({ open: false, text: '' })
+    }
+
     return (
         <Layout>
             <Grid
@@ -66,16 +76,13 @@ export default function Editdata() {
                 sx={{ mb: 8 }}
                 flexDirection="column"
             >
-                <Button
-                    onClick={() => {
-                        getPlants()
-                    }}
-                >
-                    Get Data
-                </Button>
-                <Typography variant="h6" sx={{ mb: 2 }} color="green">
-                    {status}
-                </Typography>
+                <Snackbar
+                    open={status.open}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                    message={status.text}
+                    action={action}
+                />
                 <TextField
                     id="name"
                     label="Name"
