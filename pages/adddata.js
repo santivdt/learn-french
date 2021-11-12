@@ -39,9 +39,6 @@ export default function Editdata() {
                 })
                 .then(
                     setStatus({ open: true, text: 'Your item was added!' }),
-                    // setTimeout(() => {
-                    //     setStatus({ open: false, text: '' })
-                    // }, 2000),
                     setNewItem({
                         name: '',
                         latinName: '',
