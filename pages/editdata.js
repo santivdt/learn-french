@@ -15,15 +15,39 @@ import {
     Grid,
     Typography,
 } from '@mui/material'
+import WarningDialog from '../components/dialog.js'
 
 export default function Editdata() {
-    const [plants, setPlants] = useState([])
+    const [allData, setAllData] = useState([])
+    const [filteredData, setFilteredData] = useState([])
     const [editIdx, setEditIdx] = useState(-1)
     const [value, setValue] = useState({ name: '', latinName: '' })
+    const [open, setOpen] = useState(false)
+    const [itemToDeleteName, setItemToDeleteName] = useState('')
+    const [itemToDeleteKey, setItemToDeleteKey] = useState('')
+
+    const handleClickCancel = () => {
+        setOpen(false)
+    }
+
+    const handleClickOpen = (key, name) => {
+        setItemToDeleteKey(key)
+        setItemToDeleteName(name)
+        setOpen(true)
+    }
+
+    const handleClickOke = (item) => {
+        console.log('oke')
+        console.log('itemtodeletekey', itemToDeleteKey)
+        handleRemove(itemToDeleteKey)
+        setItemToDeleteName('')
+        setItemToDeleteKey('')
+        setOpen(false)
+    }
 
     useEffect(() => {
         initFirebase()
-        const getPlants = async () => {
+        const getData = async () => {
             let response = []
             const querySnapshot = await firebase
                 .firestore()
@@ -33,9 +57,10 @@ export default function Editdata() {
                 response.push({ [`${doc.id}`]: doc.data() })
             })
 
-            setPlants(response)
+            setAllData(response)
+            setFilteredData(response)
         }
-        getPlants()
+        getData()
     }, [])
 
     const [status, setStatus] = useState()
@@ -60,7 +85,6 @@ export default function Editdata() {
     }
 
     const startEditing = async (doc, index, item) => {
-        console.log(plants)
         setEditIdx(index)
 
         setValue({
@@ -117,7 +141,17 @@ export default function Editdata() {
                     id="standard-basic"
                     label="Search"
                     variant="standard"
+                    onChange={(event) => handleSearch(event)}
                 />
+                <WarningDialog
+                    title="Are you sure?"
+                    handleClickCancel={handleClickCancel}
+                    handleClickOke={handleClickOke}
+                    state={open}
+                    itemToDeleteKey={itemToDeleteKey}
+                >
+                    Are you sure you want to delete {itemToDeleteName}?
+                </WarningDialog>
             </Grid>
             <Typography variant="h4" color="green">
                 {status}
@@ -133,7 +167,7 @@ export default function Editdata() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {plants.map((item, index) => {
+                        {filteredData.map((item, index) => {
                             let key = Object.keys(item, index)
                             const currentlyEditing = checkIfCurrentlyEditing(
                                 index,
@@ -212,8 +246,13 @@ export default function Editdata() {
                                         <Button
                                             variant="outlined"
                                             color="secondary"
-                                            onClick={() => handleRemove(key)}
                                             disabled={currentlyEditing}
+                                            onClick={() =>
+                                                handleClickOpen(
+                                                    key,
+                                                    item[key].name
+                                                )
+                                            }
                                         >
                                             <span className="material-icons">
                                                 delete
