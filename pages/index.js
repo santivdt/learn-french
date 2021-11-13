@@ -144,18 +144,30 @@ export default function Home() {
                                 >
                                     <CardContent>
                                         {!memoryStatus[index] && (
-                                            <CardMedia
-                                                component="img"
-                                                src={item.img}
-                                                width="100px"
-                                                height="100px"
-                                                alt={item.name}
-                                            />
+                                            <>
+                                                {item.img ? (
+                                                    <CardMedia
+                                                        component="img"
+                                                        src={item.img}
+                                                        width="100px"
+                                                        height="100px"
+                                                        alt={item.name}
+                                                    />
+                                                ) : (
+                                                    <CardMedia
+                                                        component="img"
+                                                        src="dummy.png"
+                                                        width="100px"
+                                                        height="100px"
+                                                        alt={item.name}
+                                                    />
+                                                )}
+                                            </>
                                         )}
                                         <Typography>
                                             {memoryStatus[index]
                                                 ? item.latinName
-                                                : ''}{' '}
+                                                : ' '}
                                         </Typography>
                                     </CardContent>
                                     <CardActions
