@@ -155,10 +155,42 @@ export default function Editdata() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Naam</TableCell>
-                            <TableCell>Latijn</TableCell>
-                            <TableCell>Edit</TableCell>
-                            <TableCell>Delete</TableCell>
+                            <TableCell>
+                                <Typography
+                                    variant="h6"
+                                    color="grey"
+                                    sx={{ fontWeight: 800 }}
+                                >
+                                    Name
+                                </Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography
+                                    variant="h6"
+                                    color="grey"
+                                    sx={{ fontWeight: 800 }}
+                                >
+                                    Latin
+                                </Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography
+                                    variant="h6"
+                                    color="grey"
+                                    sx={{ fontWeight: 800 }}
+                                >
+                                    Edit
+                                </Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography
+                                    variant="h6"
+                                    color="grey"
+                                    sx={{ fontWeight: 800 }}
+                                >
+                                    Delete
+                                </Typography>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
