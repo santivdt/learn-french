@@ -25,20 +25,19 @@ export default function Editdata() {
     const [open, setOpen] = useState(false)
     const [itemToDeleteName, setItemToDeleteName] = useState('')
     const [itemToDeleteKey, setItemToDeleteKey] = useState('')
+    const [status, setStatus] = useState('')
 
     const handleClickCancel = () => {
         setOpen(false)
     }
 
-    const handleClickOpen = (key, name) => {
-        setItemToDeleteKey(key)
+    const handleClickOpen = (doc, name) => {
+        setItemToDeleteKey(doc)
         setItemToDeleteName(name)
         setOpen(true)
     }
 
-    const handleClickOke = (item) => {
-        console.log('oke')
-        console.log('itemtodeletekey', itemToDeleteKey)
+    const handleClickOke = () => {
         handleRemove(itemToDeleteKey)
         setItemToDeleteName('')
         setItemToDeleteKey('')
@@ -54,7 +53,9 @@ export default function Editdata() {
                 .collection('plants')
                 .get()
             querySnapshot.forEach((doc) => {
-                response.push({ [`${doc.id}`]: doc.data() })
+                let temp = doc.data()
+                temp.doc = doc.id
+                response.push(temp)
             })
 
             setAllData(response)
@@ -63,14 +64,12 @@ export default function Editdata() {
         getData()
     }, [])
 
-    const [status, setStatus] = useState()
 
     const handleRemove = async (doc) => {
-        console.log('deleteitem called')
         firebase
             .firestore()
             .collection('plants')
-            .doc(doc[0])
+            .doc(doc)
             .delete()
             .then(() => {
                 console.log('yes'),
@@ -88,16 +87,12 @@ export default function Editdata() {
         setEditIdx(index)
 
         setValue({
-            name: item[doc].name,
-            latinName: item[doc].latinName,
+            name: item.name,
+            latinName: item.latinName,
         })
     }
 
     const writeToFireBaseStore = (doc) => {
-        console.log('writetofirebasestore init')
-        console.log(doc)
-        // console.log(data)
-        console.log(value)
         try {
             firebase
                 .firestore()
@@ -167,8 +162,7 @@ export default function Editdata() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filteredData.map((item, index) => {
-                            let key = Object.keys(item, index)
+                        {allData.map((item, index) => {
                             const currentlyEditing = checkIfCurrentlyEditing(
                                 index,
                                 editIdx
@@ -185,10 +179,10 @@ export default function Editdata() {
                                 >
                                     <TableCell component="th" scope="row">
                                         {!currentlyEditing ? (
-                                            item[key].name
+                                            item.name
                                         ) : (
                                             <TextField
-                                                name={item[key].name}
+                                                name={item.name}
                                                 value={value.name}
                                                 onChange={(e) =>
                                                     handleChange(
@@ -201,10 +195,10 @@ export default function Editdata() {
                                     </TableCell>
                                     <TableCell>
                                         {!currentlyEditing ? (
-                                            item[key].latinName
+                                            item.latinName
                                         ) : (
                                             <TextField
-                                                name={item[key].latinName}
+                                                name={item.latinName}
                                                 value={value.latinName}
                                                 onChange={(e) =>
                                                     handleChange(
@@ -222,7 +216,7 @@ export default function Editdata() {
                                                 color="primary"
                                                 onClick={() =>
                                                     startEditing(
-                                                        key[0],
+                                                        item.doc,
                                                         index,
                                                         item
                                                     )
@@ -235,7 +229,7 @@ export default function Editdata() {
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={() =>
-                                                    stopEditing(key[0], index)
+                                                    stopEditing(item.doc, index)
                                                 }
                                             >
                                                 Save
@@ -249,8 +243,8 @@ export default function Editdata() {
                                             disabled={currentlyEditing}
                                             onClick={() =>
                                                 handleClickOpen(
-                                                    key,
-                                                    item[key].name
+                                                    item.doc,
+                                                    item.name
                                                 )
                                             }
                                         >
