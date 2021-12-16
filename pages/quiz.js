@@ -2,6 +2,8 @@ import { data } from '../data/data.js'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import QuizResultsTable from '../components/quizResultsTable'
+import clsx from 'clsx'
+import styles from '../styles/quiz.module.scss'
 
 export default function Quiz() {
     const [currentItem, setCurrentItem] = useState(0)
@@ -70,8 +72,13 @@ export default function Quiz() {
     }
 
     return (
-        <>
-            <div>
+        
+            <div className={
+                clsx(
+                    styles.quizcard,
+                    "flex-column"
+                )
+            }>
                 {!showScore && (
                     <>
                         <h2>Welke plant zie je hier?</h2>
@@ -91,7 +98,7 @@ export default function Quiz() {
                 ) : (
                     <>
                         <Image
-                            width="400px"
+                            width="200px"
                             height="400px"
                             alt="test"
                             src={data[currentItem].img}
@@ -107,13 +114,12 @@ export default function Quiz() {
                                     >
                                         {item}
                                     </button>
-                                    <br />
                                 </div>
                             )
                         })}
                     </>
                 )}
             </div>
-        </>
+        
     )
 }
