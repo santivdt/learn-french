@@ -30,7 +30,7 @@ export default function Navigation() {
                         </span>
                     )
                 })}
-              <GoThreeBars class={styles.hamburger} size="20" onClick={() => toggleMenu()}/>  
+              <GoThreeBars className={styles.hamburger} size="20" onClick={() => toggleMenu()}/>  
             </div>
             <div className={clsx(
                 styles.mobilenav,

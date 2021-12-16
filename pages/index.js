@@ -107,7 +107,9 @@ export default function Home() {
             <div className={styles.homecontent}>
             {memoryOrder.map((item, index) => {
                         return (
-                                <div className={styles.card}    >
+                                <div 
+                                    className={styles.card}   
+                                    key={index} >
                                         {!memoryStatus[index] && (
                                             <>
                                                 {item.img ? (
