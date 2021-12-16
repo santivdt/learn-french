@@ -1,6 +1,7 @@
 import Layout from '../components/layout/layout.js'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import firebase from 'firebase'
+import initFirebase from '../firebase/initFirebase.js'
 import { Button, TextField, Grid, Typography, Snackbar } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
@@ -9,9 +10,33 @@ export default function Editdata() {
     const [newItem, setNewItem] = useState({
         name: '',
         latinName: '',
+        img: '',
     })
 
     const [status, setStatus] = useState({ open: false, text: '' })
+    const [fileUrl, setFileUrl] = useState()
+    const [users, setUsers] = useState([])
+
+    const handleClose = () => {
+        setStatus({ open: false, text: '' })
+    }
+
+    useEffect(() => {
+        initFirebase()
+        const fetchUsers = async () => {
+            const usersCollection = await firebase
+                .firestore()
+                .collection('users')
+                .get()
+            setUsers(
+                usersCollection.docs.map((doc) => {
+                    return doc.data()
+                })
+            )
+        }
+
+        fetchUsers()
+    }, [])
 
     const action = (
         <>
@@ -27,6 +52,7 @@ export default function Editdata() {
     )
 
     const addData = async () => {
+        console.log(newItem, 'to be set')
         try {
             await firebase
                 .firestore()
@@ -35,6 +61,7 @@ export default function Editdata() {
                 .set({
                     name: newItem.name,
                     latinName: newItem.latinName,
+                    img: newItem.img,
                     time_stamp: firebase.firestore.Timestamp.now(),
                 })
                 .then(
@@ -42,6 +69,7 @@ export default function Editdata() {
                     setNewItem({
                         name: '',
                         latinName: '',
+                        img: '',
                     })
                 )
         } catch (error) {
@@ -60,8 +88,28 @@ export default function Editdata() {
         }
     }
 
-    const handleClose = () => {
-        setStatus({ open: false, text: '' })
+    const onFileChange = async (e) => {
+        console.log('img added')
+        const file = e.target.files[0]
+        const storageRef = firebase.storage().ref()
+        const fileRef = storageRef.child(file.name)
+        await fileRef.put(file)
+        setFileUrl(await fileRef.getDownloadURL())
+        console.log(fileUrl, 'fileurl?')
+        setNewItem({ ...newItem, img: fileUrl })
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        const username = e.target.username.value
+        if (!username) {
+            return
+        }
+        firebase
+            .firestore()
+            .collection('users')
+            .doc(username)
+            .set({ name: username, avatar: fileUrl })
     }
 
     return (
@@ -100,6 +148,10 @@ export default function Editdata() {
                     }
                     sx={{ mb: 2 }}
                 />
+                <Button component="label" variant="outlined" sx={{ mb: 2 }}>
+                    Upload IMG
+                    <input type="file" hidden onChange={onFileChange} />
+                </Button>
                 <Button
                     variant="contained"
                     onClick={() => {
@@ -108,6 +160,26 @@ export default function Editdata() {
                 >
                     Add
                 </Button>
+                <form onSubmit={onSubmit}>
+                    <input type="file" onChange={onFileChange} />
+                    <input type="text" name="username" placeholder="name" />
+                    <button>Submit</button>
+                </form>
+                <ul>
+                    {users.map((user, i) => {
+                        return (
+                            <li key={i}>
+                                <img
+                                    width="100"
+                                    height="100"
+                                    src={user.avatar}
+                                    alt={user.name}
+                                />
+                                <p>{user.name}</p>
+                            </li>
+                        )
+                    })}
+                </ul>
             </Grid>
         </Layout>
     )

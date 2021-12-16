@@ -64,6 +64,15 @@ export default function Editdata() {
         getData()
     }, [])
 
+    const handleSearch = (event) => {
+        console.log('handlesearch')
+        console.log(allData)
+        let value = event.target.value.toLowerCase()
+        let result = []
+
+        console.log(result)
+        // setFilteredData(result)
+    }
 
     const handleRemove = async (doc) => {
         firebase

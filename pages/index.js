@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/layout.js'
-import { data } from '../data/data'
 import {
     Switch,
     Button,
@@ -17,6 +16,9 @@ import firebase from 'firebase'
 
 export default function Home() {
     const [plants, setPlants] = useState([])
+    const allFalse = new Array(plants.length).fill(false)
+    const allTrue = new Array(plants.length).fill(true)
+    const [memoryStatus, setMemoryStatus] = useState(allFalse)
 
     useEffect(() => {
         initFirebase()
@@ -31,17 +33,17 @@ export default function Home() {
             })
 
             setPlants(response)
+            setMemoryOrder(response)
+            const allFalse = new Array(plants.length).fill(false)
+            setMemoryStatus(allFalse)
         }
         getPlants()
-        setMemoryOrder(plants)
     }, [])
 
-    const allFalse = new Array(plants.length).fill(false)
-    const allTrue = new Array(plants.length).fill(true)
-
-    const [memoryStatus, setMemoryStatus] = useState(allFalse)
     const [baseValue, setBaseValue] = useState(false)
     const [memoryOrder, setMemoryOrder] = useState(plants)
+
+    console.log('memstat', memoryStatus)
 
     const randomShuffleArray = (array) => {
         let currentIndex = array.length,
@@ -64,11 +66,14 @@ export default function Home() {
     }
 
     const handleChange = (position) => {
+        console.log('handlechange', position)
         const newMemoryStatus = memoryStatus.map((item, index) => {
             if (index === position) {
+                console.log('true')
                 return !item
             } else return item
         })
+        console.log('newmemsta', newMemoryStatus)
         setMemoryStatus(newMemoryStatus)
     }
 
@@ -184,7 +189,7 @@ export default function Home() {
                                             size="small"
                                             variant="contained"
                                         >
-                                            {baseValue
+                                            {memoryStatus[index]
                                                 ? 'Show Img'
                                                 : 'Show name'}
                                         </Button>
