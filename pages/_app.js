@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-import { ThemeProvider } from '@mui/material/styles'
-import theme from '../components/theme.js'
-import { CssBaseline } from '@mui/material'
+import '../styles/globals.scss'
+import Layout from '../components/layout/layout.js'
 
 export default function MyApp(props) {
     const { Component, pageProps } = props
@@ -25,10 +24,9 @@ export default function MyApp(props) {
                     content="minimum-scale=1, initial-scale=1, width=device-width"
                 />
             </Head>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
+            <Layout>
                 <Component {...pageProps} />
-            </ThemeProvider>
+            </Layout>
         </React.Fragment>
     )
 }

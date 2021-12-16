@@ -1,8 +1,7 @@
-import Layout from '../components/layout/layout.js'
 import { useState, useEffect } from 'react'
 import firebase from 'firebase'
 import initFirebase from '../firebase/initFirebase.js'
-import { Button, TextField, Grid, Typography, Snackbar } from '@mui/material'
+import { Button, TextField, Snackbar } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 
@@ -113,14 +112,8 @@ export default function Editdata() {
     }
 
     return (
-        <Layout>
-            <Grid
-                container
-                item
-                justifyContent="flex-start"
-                sx={{ mb: 8 }}
-                flexDirection="column"
-            >
+        <>
+            <div className="flex-column">
                 <Snackbar
                     open={status.open}
                     autoHideDuration={3000}
@@ -160,27 +153,7 @@ export default function Editdata() {
                 >
                     Add
                 </Button>
-                <form onSubmit={onSubmit}>
-                    <input type="file" onChange={onFileChange} />
-                    <input type="text" name="username" placeholder="name" />
-                    <button>Submit</button>
-                </form>
-                <ul>
-                    {users.map((user, i) => {
-                        return (
-                            <li key={i}>
-                                <img
-                                    width="100"
-                                    height="100"
-                                    src={user.avatar}
-                                    alt={user.name}
-                                />
-                                <p>{user.name}</p>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </Grid>
-        </Layout>
+            </div>
+        </>
     )
 }

@@ -39,7 +39,9 @@ export default function Navigation() {
                 {menuItems.map((item, index) => {
                     return (
                         <span className={styles.item} key={index}>
-                            {item.title}
+                            <Link href={item.url}>
+                                <a>{item.title}</a>
+                            </Link>
                         </span>
                     )
                 })}

@@ -1,15 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../components/layout/layout.js'
-import {
-    Switch,
-    Button,
-    Grid,
-    Card,
-    CardContent,
-    Typography,
-    CardActions,
-    CardMedia,
-} from '@mui/material'
 import styles from '../styles/home.module.scss'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
@@ -96,110 +85,56 @@ export default function Home() {
     }
 
     return (
-        <Layout>
-            <Grid container direction="column" alignContent="center">
-                <Grid item justifyContent="center" alignSelf="center">
-                    <Button
-                        variant="contained"
-                        color="secondary"
+        <div className={styles.homecontainer}>
+            <div className={styles.sidebar}>
+            <button
                         onClick={() => {
                             resetCards()
                         }}
-                        size="large"
-                        sx={{ color: 'white', px: 4, mx: 2 }}
+                        className="mb"
                     >
                         Reset cards
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
+                    </button>
+                    <button
                         onClick={() => {
                             changeOrder()
                         }}
-                        size="large"
-                        sx={{ color: 'white', px: 4, mr: 2 }}
                     >
                         Change order
-                    </Button>
-                    <Switch
-                        color="primary"
-                        onChange={() => {
-                            changeSwitch()
-                        }}
-                    />
-                </Grid>
-                <Grid
-                    item
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    className={styles.TEST}
-                >
-                    {memoryOrder.map((item, index) => {
+                    </button>
+                    
+            </div>
+            <div className={styles.homecontent}>
+            {memoryOrder.map((item, index) => {
                         return (
-                            <Grid item xs={8} sm={4} md={3} lg={2} key={index}>
-                                <Card
-                                    sx={{
-                                        m: 2,
-                                        minHeight: 200,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        justifyContent: 'space-between',
-                                    }}
-                                >
-                                    <CardContent>
+                                <div className={styles.card}    >
                                         {!memoryStatus[index] && (
                                             <>
                                                 {item.img ? (
-                                                    <CardMedia
-                                                        component="img"
-                                                        src={item.img}
-                                                        width="100px"
-                                                        height="100px"
-                                                        alt={item.name}
-                                                    />
+                                                    <img src={item.img} width="100px" height="100px" alt={item.name}/>
+                                                    
                                                 ) : (
-                                                    <CardMedia
-                                                        component="img"
-                                                        src="dummy.png"
-                                                        width="100px"
-                                                        height="100px"
-                                                        alt={item.name}
-                                                    />
+                                                    <img src="/dummy.png" width="100px" height="100px" alt={item.name}/>
                                                 )}
                                             </>
                                         )}
-                                        <Typography>
+                                        <span className={styles.cardtext}>
                                             {memoryStatus[index]
                                                 ? item.latinName
                                                 : ' '}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions
-                                        sx={{
-                                            flexGrow: 1,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'flex-end',
-                                            alignItems: 'flex-start',
-                                        }}
-                                    >
-                                        <Button
+                                        </span>
+                                        <button
                                             onClick={() => handleChange(index)}
-                                            size="small"
-                                            variant="contained"
+                                           
                                         >
                                             {memoryStatus[index]
                                                 ? 'Show Img'
                                                 : 'Show name'}
-                                        </Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
+                                        </button>
+                                </div>
                         )
                     })}
-                </Grid>
-            </Grid>
-        </Layout>
+            </div>
+        </div>
     )
 }

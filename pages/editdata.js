@@ -1,21 +1,11 @@
-import Layout from '../components/layout/layout.js'
 import { useState, useEffect } from 'react'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Button,
     TextField,
-    Grid,
-    Typography,
 } from '@mui/material'
 import WarningDialog from '../components/dialog.js'
+import styles from '../styles/editdata.module.scss'
 
 export default function Editdata() {
     const [allData, setAllData] = useState([])
@@ -139,13 +129,13 @@ export default function Editdata() {
     }
 
     return (
-        <Layout>
-            <Grid container item justifyContent="space-between" sx={{ mb: 8 }}>
-                <TextField
+        <div className="flex-column">
+            <TextField
                     id="standard-basic"
                     label="Search"
                     variant="standard"
                     onChange={(event) => handleSearch(event)}
+                    className={styles.search}
                 />
                 <WarningDialog
                     title="Are you sure?"
@@ -156,150 +146,118 @@ export default function Editdata() {
                 >
                     Are you sure you want to delete {itemToDeleteName}?
                 </WarningDialog>
-            </Grid>
-            <Typography variant="h4" color="green">
-                {status}
-            </Typography>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                <Typography
-                                    variant="h6"
-                                    color="grey"
-                                    sx={{ fontWeight: 800 }}
-                                >
-                                    Name
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography
-                                    variant="h6"
-                                    color="grey"
-                                    sx={{ fontWeight: 800 }}
-                                >
-                                    Latin
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography
-                                    variant="h6"
-                                    color="grey"
-                                    sx={{ fontWeight: 800 }}
-                                >
-                                    Edit
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography
-                                    variant="h6"
-                                    color="grey"
-                                    sx={{ fontWeight: 800 }}
-                                >
-                                    Delete
-                                </Typography>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {allData.map((item, index) => {
-                            const currentlyEditing = checkIfCurrentlyEditing(
-                                index,
-                                editIdx
-                            )
+            <span className={styles.status}>{status}</span>
+            <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>                                
+                                Latin
+                            </th>                            
+                            <th>                                
+                                Edit
+                            </th>                            
+                            <th>                                
+                                Delete
+                            </th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {allData.map((item, index) => {
+                        const currentlyEditing = checkIfCurrentlyEditing(
+                            index,
+                            editIdx
+                        )
 
-                            return (
-                                <TableRow
-                                    key={index}
-                                    sx={{
-                                        '&:last-child td, &:last-child th': {
-                                            border: 0,
-                                        },
-                                    }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {!currentlyEditing ? (
-                                            item.name
-                                        ) : (
-                                            <TextField
-                                                name={item.name}
-                                                value={value.name}
-                                                onChange={(e) =>
-                                                    handleChange(
-                                                        e.target.value,
-                                                        'name'
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {!currentlyEditing ? (
-                                            item.latinName
-                                        ) : (
-                                            <TextField
-                                                name={item.latinName}
-                                                value={value.latinName}
-                                                onChange={(e) =>
-                                                    handleChange(
-                                                        e.target.value,
-                                                        'latinName'
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {!currentlyEditing ? (
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={() =>
-                                                    startEditing(
-                                                        item.doc,
-                                                        index,
-                                                        item
-                                                    )
-                                                }
-                                            >
-                                                Edit
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={() =>
-                                                    stopEditing(item.doc, index)
-                                                }
-                                            >
-                                                Save
-                                            </Button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="outlined"
-                                            color="secondary"
-                                            disabled={currentlyEditing}
+                        return (
+                            <tr
+                                key={index}
+                                sx={{
+                                    '&:last-child td, &:last-child th': {
+                                        border: 0,
+                                    },
+                                }}
+                            >
+                                <td>
+                                    {!currentlyEditing ? (
+                                        item.name
+                                    ) : (
+                                        <TextField
+                                            name={item.name}
+                                            value={value.name}
+                                            onChange={(e) =>
+                                                handleChange(
+                                                    e.target.value,
+                                                    'name'
+                                                )
+                                            }
+                                        />
+                                    )}
+                                </td>
+                                <td>
+                                    {!currentlyEditing ? (
+                                        item.latinName
+                                    ) : (
+                                        <TextField
+                                            name={item.latinName}
+                                            value={value.latinName}
+                                            onChange={(e) =>
+                                                handleChange(
+                                                    e.target.value,
+                                                    'latinName'
+                                                )
+                                            }
+                                        />
+                                    )}
+                                </td>
+                                <td>
+                                    {!currentlyEditing ? (
+                                        <button
+                                            
                                             onClick={() =>
-                                                handleClickOpen(
+                                                startEditing(
                                                     item.doc,
-                                                    item.name
+                                                    index,
+                                                    item
                                                 )
                                             }
                                         >
-                                            <span className="material-icons">
-                                                delete
-                                            </span>
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            )
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Layout>
+                                            Edit
+                                        </button>
+                                    ) : (
+                                        <button
+                                            
+                                            onClick={() =>
+                                                stopEditing(item.doc, index)
+                                            }
+                                        >
+                                            Save
+                                        </button>
+                                    )}
+                                </td>
+                                <td>
+                                    <button
+                                        
+                                        disabled={currentlyEditing}
+                                        onClick={() =>
+                                            handleClickOpen(
+                                                item.doc,
+                                                item.name
+                                            )
+                                        }
+                                    >
+                                        <span className="material-icons">
+                                            delete
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }

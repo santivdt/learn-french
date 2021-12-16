@@ -1,13 +1,33 @@
-.MuiCard-root {
+.homecontainer {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
 }
 
-.MuiCardActions-root {
+.sidebar {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 16px;
+    flex-basis: 20%;
+}
+
+.homecontent {
+    flex-grow: 4;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-between;
+    margin: 0 1rem 1rem 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px; /* 5px rounded corners */
+
+    img {
+        margin-bottom: 0.5rem;
+        border-radius: 5px 5px 0 0;
+    }
 }

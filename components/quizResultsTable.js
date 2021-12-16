@@ -1,12 +1,3 @@
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-} from '@mui/material'
 import Image from 'next/image'
 import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check'
@@ -14,21 +5,20 @@ import { red, green } from '@mui/material/colors'
 
 export default function QuizResultsTable({ data, answersGivenByUser }) {
     return (
-        <TableContainer component={Paper} sx={{ mt: 2 }}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>&nbsp;</TableCell>
-                        <TableCell>Vraag</TableCell>
-                        <TableCell>Foto</TableCell>
-                        <TableCell>Jouw antwoord</TableCell>
-                        <TableCell>Correcte antwoord</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
+            <table>
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Vraag</th>
+                        <th>Foto</th>
+                        <th>Jouw antwoord</th>
+                        <th>Correcte antwoord</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {data.map((item, index) => (
-                        <TableRow key={index}>
-                            <TableCell>
+                        <tr key={index}>
+                            <td>
                                 {' '}
                                 {answersGivenByUser[index] ==
                                     data[index].latinName && (
@@ -38,9 +28,9 @@ export default function QuizResultsTable({ data, answersGivenByUser }) {
                                     data[index].latinName && (
                                     <ClearIcon sx={{ color: red[500] }} />
                                 )}
-                            </TableCell>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>
+                            </td>
+                            <td>{index + 1}</td>
+                            <td>
                                 {' '}
                                 <Image
                                     width="80px"
@@ -48,13 +38,12 @@ export default function QuizResultsTable({ data, answersGivenByUser }) {
                                     alt="test"
                                     src={data[index].img}
                                 />
-                            </TableCell>
-                            <TableCell>{answersGivenByUser[index]}</TableCell>
-                            <TableCell>{data[index].latinName}</TableCell>
-                        </TableRow>
+                            </td>
+                            <td>{answersGivenByUser[index]}</td>
+                            <td>{data[index].latinName}</td>
+                        </tr>
                     ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                </tbody>
+            </table>
     )
 }

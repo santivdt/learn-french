@@ -1,8 +1,6 @@
-import Layout from '../components/layout/layout'
 import { data } from '../data/data.js'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
 import QuizResultsTable from '../components/quizResultsTable'
 
 export default function Quiz() {
@@ -72,7 +70,7 @@ export default function Quiz() {
     }
 
     return (
-        <Layout>
+        <>
             <div>
                 {!showScore && (
                     <>
@@ -101,15 +99,14 @@ export default function Quiz() {
                         {copyOfAnswerOptionArray.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <Button
-                                        variant="contained"
-                                        sx={{ mt: 2 }}
+                                    <button
+                                        
                                         onClick={() => {
                                             handleAnswerGiven(item)
                                         }}
                                     >
                                         {item}
-                                    </Button>
+                                    </button>
                                     <br />
                                 </div>
                             )
@@ -117,6 +114,6 @@ export default function Quiz() {
                     </>
                 )}
             </div>
-        </Layout>
+        </>
     )
 }
