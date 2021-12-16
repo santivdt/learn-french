@@ -1,4 +1,4 @@
-import Navigation from '../navigation/nav'
+import Navigation from '../navigation/nav.js'
 import styles from './layout.module.scss'
 import Footer from '../footer/footer'
 
@@ -9,7 +9,7 @@ export default function Layout({ children }) {
             <main className={styles.content}>{children}</main>
             <div className={styles.footercontainer}>
                 <Footer />
-            </div>
+            </div>  
         </div>
     )
 }
