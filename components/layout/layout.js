@@ -1,32 +1,16 @@
-import { Grid, Box } from '@mui/material'
 import Header from '../header/header'
+import styles from './layout.module.scss'
+import Footer from '../footer/footer'
+import clsx from 'clsx'
 
 export default function Layout({ children }) {
     return (
-        <Box sx={{ backgroundColor: 'heellichtgroen.main' }}>
-            <Grid
-                container
-                direction="column"
-                style={{
-                    minWidth: '100%',
-                    height: '100vh',
-                }}
-            >
-                <Grid item sx={{ minWidth: '100%' }}>
-                    <Header />
-                </Grid>
-                <Grid
-                    item
-                    container
-                    justifyContent="center"
-                    sx={{ flexGrow: 1 }}
-                    alignItems="center"
-                >
-                    <Grid item xs={10} sm={8} justifyContent="center">
-                        {children}
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Box>
+        <div className={styles.container}>
+            <Header />
+            <main className={styles.content}>{children}</main>
+            <div className={styles.footercontainer}>
+                <Footer />
+            </div>
+        </div>
     )
 }

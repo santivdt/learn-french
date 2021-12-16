@@ -10,7 +10,7 @@ import {
     CardActions,
     CardMedia,
 } from '@mui/material'
-import styles from '../styles/home.module.css'
+import styles from '../styles/home.module.scss'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
 
