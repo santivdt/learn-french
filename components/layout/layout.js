@@ -1,7 +1,6 @@
 import Header from '../header/header'
 import styles from './layout.module.scss'
 import Footer from '../footer/footer'
-import clsx from 'clsx'
 
 export default function Layout({ children }) {
     return (
