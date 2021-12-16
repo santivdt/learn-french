@@ -35,8 +35,42 @@
     .itemcontainer {
         justify-content: space-between;
     }
-    
+
     .hamburger {
         display: none;
+    }
+}
+
+.mobilenav {
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 2rem;
+    transform: translateX(-100%);
+    transition: transform 350ms ease-out;
+
+    div {
+        padding: 1rem;
+
+        &:first-of-type {
+            margin-top: 4rem;
+        }
+
+        font-size: 2rem;
+    }
+
+    .close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    &.visible {
+        transform: translateX(0%);
+        transition: transform 350ms ease-out;
     }
 }

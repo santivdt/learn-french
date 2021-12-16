@@ -1,4 +1,4 @@
-import Navigation from '../header/nav'
+import Navigation from '../navigation/nav'
 import styles from './layout.module.scss'
 import Footer from '../footer/footer'
 
