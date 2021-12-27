@@ -146,10 +146,10 @@ export default function Editdata() {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item, index) => {
+                    {items.map(({ id, name, latinName, isEditing }) => {
                         return (
                             <tr
-                                key={index}
+                                key={id}
                                 sx={{
                                     '&:last-child td, &:last-child th': {
                                         border: 0,
@@ -157,9 +157,9 @@ export default function Editdata() {
                                 }}
                             >
                                 <td>
-                                    {item.isEditing ? (
+                                    {isEditing ? (
                                         <TextField
-                                            name={item.name}
+                                            name={name}
                                             value={editName}
                                             onChange={(event) =>
                                                 setEditName(
@@ -168,13 +168,13 @@ export default function Editdata() {
                                             }
                                         />
                                     ) : (
-                                        item.name
+                                        name
                                     )}
                                 </td>
                                 <td>
-                                    {item.isEditing ? (
+                                    {isEditing ? (
                                         <TextField
-                                            name={item.latinName}
+                                            name={latinName}
                                             value={editLatinName}
                                             onChange={(e) =>
                                                 setEditLatinName(
@@ -183,24 +183,24 @@ export default function Editdata() {
                                             }
                                         />
                                     ) : (
-                                        item.latinName
+                                        latinName
                                     )}
                                 </td>
                                 <td>
-                                    {item.isEditing ? (
-                                        <button onClick={() => save(item.id)}>
+                                    {isEditing ? (
+                                        <button onClick={() => save(id)}>
                                             Save
                                         </button>
                                     ) : (
-                                        <button onClick={() => edit(item.id)}>
+                                        <button onClick={() => edit(id)}>
                                             Edit
                                         </button>
                                     )}
                                 </td>
                                 <td>
                                     <button
-                                        disabled={item.isEditing}
-                                        onClick={() => remove(item.id)}
+                                        disabled={isEditing}
+                                        onClick={() => remove(id)}
                                     >
                                         Delete
                                     </button>
