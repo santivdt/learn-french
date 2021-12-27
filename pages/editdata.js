@@ -88,7 +88,7 @@ export default function Editdata() {
                 console.log('yes'),
                     setStatus('Your item has been deleted'),
                     setTimeout(() => {
-                        setStatus('')
+                        setStatus(null)
                     }, 2000)
             })
             .catch((error) => {
