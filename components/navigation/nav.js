@@ -1,25 +1,25 @@
 import Link from 'next/link'
 import styles from './nav.module.scss'
-import { GoThreeBars } from "react-icons/go";
-import {menuItems} from './menuitems.js'
-import { GoX } from "react-icons/go";
-import { useState } from 'react';
-import clsx from 'clsx';
+import { GoThreeBars } from 'react-icons/go'
+import { menuItems } from './menuitems.js'
+import { GoX } from 'react-icons/go'
+import { useState } from 'react'
+import clsx from 'clsx'
 
 export default function Navigation() {
-    
     const [menuVisible, setMenuVisible] = useState(false)
 
     const toggleMenu = () => {
         console.log('1', menuVisible)
-        setMenuVisible(prevMenuVisible => !prevMenuVisible)
+        setMenuVisible((prevMenuVisible) => !prevMenuVisible)
         console.log('2', menuVisible)
     }
-    
 
     return (
         <div className={styles.navcontainer}>
-            <div className={styles.company}><Link href="/">BRAVO</Link></div>
+            <div className={styles.company}>
+                <Link href="/">BRAVO</Link>
+            </div>
             <div className={styles.itemcontainer}>
                 {menuItems.map((item, index) => {
                     return (
@@ -30,20 +30,29 @@ export default function Navigation() {
                         </span>
                     )
                 })}
-              <GoThreeBars className={styles.hamburger} size="20" onClick={() => toggleMenu()}/>  
+                <GoThreeBars
+                    className={styles.hamburger}
+                    size="20"
+                    onClick={() => toggleMenu()}
+                />
             </div>
-            <div className={clsx(
-                styles.mobilenav,
-                {
+            <div
+                className={clsx(styles.mobilenav, {
                     [styles.visible]: menuVisible,
-                }
-            )} >
-                <GoX className={styles.close} size="50" onClick={() => toggleMenu()}/>
+                })}
+            >
+                <GoX
+                    className={styles.close}
+                    size="50"
+                    onClick={() => toggleMenu()}
+                />
                 {menuItems.map((item, index) => {
                     return (
-                        <div key={index} onClick={() => toggleMenu()}><Link href={item.url}>
-                        <a>{item.title}</a>
-                    </Link></div>
+                        <div key={index} onClick={() => toggleMenu()}>
+                            <Link href={item.url}>
+                                <a>{item.title}</a>
+                            </Link>
+                        </div>
                     )
                 })}
             </div>

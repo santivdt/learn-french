@@ -113,45 +113,45 @@ export default function Editdata() {
 
     return (
         <>
-                <Snackbar
-                    open={status.open}
-                    autoHideDuration={3000}
-                    onClose={handleClose}
-                    message={status.text}
-                    action={action}
-                />
-                <TextField
-                    id="name"
-                    label="Name"
-                    variant="outlined"
-                    value={newItem.name}
-                    onChange={(event, type) =>
-                        handleData(event.target.value, 'name')
-                    }
-                    sx={{ mb: 2 }}
-                />
-                <TextField
-                    id="latinName"
-                    label="Latin Name"
-                    value={newItem.latinName}
-                    variant="outlined"
-                    onChange={(event, type) =>
-                        handleData(event.target.value, 'latinName')
-                    }
-                    sx={{ mb: 2 }}
-                />
-                <Button component="label" variant="outlined" sx={{ mb: 2 }}>
-                    Upload IMG
-                    <input type="file" hidden onChange={onFileChange} />
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={() => {
-                        addData()
-                    }}
-                >
-                    Add
-                </Button>
+            <Snackbar
+                open={status.open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                message={status.text}
+                action={action}
+            />
+            <TextField
+                id="name"
+                label="Name"
+                variant="outlined"
+                value={newItem.name}
+                onChange={(event, type) =>
+                    handleData(event.target.value, 'name')
+                }
+                sx={{ mb: 2 }}
+            />
+            <TextField
+                id="latinName"
+                label="Latin Name"
+                value={newItem.latinName}
+                variant="outlined"
+                onChange={(event, type) =>
+                    handleData(event.target.value, 'latinName')
+                }
+                sx={{ mb: 2 }}
+            />
+            <Button component="label" variant="outlined" sx={{ mb: 2 }}>
+                Upload IMG
+                <input type="file" hidden onChange={onFileChange} />
+            </Button>
+            <Button
+                variant="contained"
+                onClick={() => {
+                    addData()
+                }}
+            >
+                Add
+            </Button>
         </>
     )
 }

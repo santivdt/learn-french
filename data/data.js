@@ -3,31 +3,31 @@ export const data = [
         name: 'Staande geranium',
         latinName: 'Pelargonium zonate',
         showName: false,
-        img: 'https://campaigntool.nl/bomen/1.png'
+        img: 'https://campaigntool.nl/bomen/1.png',
     },
     {
         name: 'Groot Afrikaantje',
         latinName: 'Tagetes Erecta',
         showName: false,
-        img: 'https://campaigntool.nl/bomen/2.png'
+        img: 'https://campaigntool.nl/bomen/2.png',
     },
     {
         name: 'Vuursalie',
         latinName: 'Salvia splendens',
         showName: false,
-        img: 'https://campaigntool.nl/bomen/3.png'
+        img: 'https://campaigntool.nl/bomen/3.png',
     },
     {
         name: 'Kattenstaart',
         latinName: 'Amaranthus caudatus',
         showName: false,
-        img: 'https://campaigntool.nl/bomen/4.png'
+        img: 'https://campaigntool.nl/bomen/4.png',
     },
     {
         name: 'Waterbegonia',
         latinName: 'Begonia semperflorens',
         showName: false,
-        img: 'https://campaigntool.nl/bomen/5.png'
+        img: 'https://campaigntool.nl/bomen/5.png',
     },
     // {
     //     name: 'Oost indische kers',

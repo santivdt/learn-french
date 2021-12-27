@@ -72,56 +72,47 @@ export default function Quiz() {
     }
 
     return (
-        
-            <div className={
-                clsx(
-                    styles.quizcard,
-                    "flex-column"
-                )
-            }>
-                {!showScore && (
-                    <>
-                        <h2>Welke plant zie je hier?</h2>
-                        <h3>
-                            Vraag {currentItem + 1} van {data.length}
-                        </h3>
-                    </>
-                )}
-                {showScore ? (
-                    <div>
-                        <h2>Je score is: {score}</h2>
-                        <QuizResultsTable
-                            data={mappingData}
-                            answersGivenByUser={answersGivenByUser}
-                        />
-                    </div>
-                ) : (
-                    <>
-                        <Image
-                            width="200px"
-                            height="400px"
-                            alt="test"
-                            src={data[currentItem].img}
-                        />
-                        {copyOfAnswerOptionArray.map((item, index) => {
-                            return (
-                                <div key={index}>
-                                    <button
-                                        className={clsx(
-                                            'outline'
-                                        )}
-                                        onClick={() => {
-                                            handleAnswerGiven(item)
-                                        }}
-                                    >
-                                        {item}
-                                    </button>
-                                </div>
-                            )
-                        })}
-                    </>
-                )}
-            </div>
-        
+        <div className={clsx(styles.quizcard, 'flex-column')}>
+            {!showScore && (
+                <>
+                    <h2>Welke plant zie je hier?</h2>
+                    <h3>
+                        Vraag {currentItem + 1} van {data.length}
+                    </h3>
+                </>
+            )}
+            {showScore ? (
+                <div>
+                    <h2>Je score is: {score}</h2>
+                    <QuizResultsTable
+                        data={mappingData}
+                        answersGivenByUser={answersGivenByUser}
+                    />
+                </div>
+            ) : (
+                <>
+                    <Image
+                        width="200px"
+                        height="400px"
+                        alt="test"
+                        src={data[currentItem].img}
+                    />
+                    {copyOfAnswerOptionArray.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <button
+                                    className={clsx('outline')}
+                                    onClick={() => {
+                                        handleAnswerGiven(item)
+                                    }}
+                                >
+                                    {item}
+                                </button>
+                            </div>
+                        )
+                    })}
+                </>
+            )}
+        </div>
     )
 }
