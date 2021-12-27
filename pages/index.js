@@ -1,146 +1,94 @@
-import React, { useEffect, useState } from 'react'
-import styles from '../styles/home.module.scss'
-import initFirebase from '../firebase/initFirebase.js'
-import firebase from 'firebase'
-import clsx from 'clsx'
+import React, { useEffect, useState } from "react";
+import styles from "../styles/home.module.scss";
+import initFirebase from "../firebase/initFirebase.js";
+import firebase from "firebase";
+import clsx from "clsx";
+
+const shuffleArray = (a) => {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
 
 export default function Home() {
-    const [plants, setPlants] = useState([])
-    const allFalse = new Array(plants.length).fill(false)
-    const allTrue = new Array(plants.length).fill(true)
-    const [memoryStatus, setMemoryStatus] = useState(allFalse)
+  const [loading, setLoading] = useState(false);
+  const [plants, setPlants] = useState([]);
 
-    useEffect(() => {
-        initFirebase()
-        const getPlants = async () => {
-            let response = []
-            const querySnapshot = await firebase
-                .firestore()
-                .collection('plants')
-                .get()
-            querySnapshot.forEach((doc) => {
-                response.push(doc.data())
-            })
+  const changeOrder = () => {
+    const newPlants = [...shuffleArray(plants)];
+    setPlants(newPlants);
+  };
 
-            setPlants(response)
-            setMemoryOrder(response)
-            const allFalse = new Array(plants.length).fill(false)
-            setMemoryStatus(allFalse)
-        }
-        getPlants()
-    }, [])
+  const handleChange = (id) => {
+    const newPlants = [...plants];
+    const plantIndex = newPlants.findIndex((item) => item.id === id);
+    newPlants[plantIndex].showName = !newPlants[plantIndex].showName;
+    setPlants(newPlants);
+  };
 
-    const [baseValue, setBaseValue] = useState(false)
-    const [memoryOrder, setMemoryOrder] = useState(plants)
+  const resetCards = () => {
+    const newPlants = plants.map((item) => ({ ...item, showName: false }));
+    setPlants(newPlants);
+  };
 
-    console.log('memstat', memoryStatus)
+  const getPlants = async () => {
+    const p = [];
+    setLoading(true);
+    const querySnapshot = await firebase.firestore().collection("plants").get();
+    querySnapshot.forEach((doc) =>
+      p.push({ id: doc.id, showName: false, ...doc.data() })
+    );
+    setPlants([...shuffleArray(p)]);
+    setLoading(false);
+  };
 
-    const randomShuffleArray = (array) => {
-        let currentIndex = array.length,
-            temporaryValue,
-            randomIndex
-        while (0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex)
-            currentIndex -= 1
-            temporaryValue = array[currentIndex]
-            array[currentIndex] = array[randomIndex]
-            array[randomIndex] = temporaryValue
-        }
-        return array
-    }
+  useEffect(() => {
+    initFirebase();
+    getPlants();
+  }, []);
 
-    const changeOrder = () => {
-        const copyOfMemoryOrder = [...memoryOrder]
-        randomShuffleArray(copyOfMemoryOrder)
-        setMemoryOrder(copyOfMemoryOrder)
-    }
-
-    const handleChange = (position) => {
-        console.log('handlechange', position)
-        const newMemoryStatus = memoryStatus.map((item, index) => {
-            if (index === position) {
-                console.log('true')
-                return !item
-            } else return item
-        })
-        console.log('newmemsta', newMemoryStatus)
-        setMemoryStatus(newMemoryStatus)
-    }
-
-    const changeSwitch = () => {
-        if (baseValue) {
-            setMemoryStatus(allFalse)
-            setBaseValue(false)
-        } else {
-            setMemoryStatus(allTrue)
-            setBaseValue(true)
-        }
-    }
-
-    const resetCards = () => {
-        if (baseValue) {
-            setMemoryStatus(allTrue)
-        } else {
-            setMemoryStatus(allFalse)
-        }
-    }
-
-    return (
-        <div className={styles.homecontainer}>
-            <div className={styles.sidebar}>
-            <button
-                        onClick={() => {
-                            resetCards()
-                        }}
-                        className={clsx('mb', 'outline', 'contained')
-                    }
-                    >
-                        Reset cards
-                    </button>
-                    <button
-                     className={clsx('outline', 'contained')
-                }
-                        onClick={() => {
-                            changeOrder()
-                        }}
-                    >
-                        Change order
-                    </button>
-                    
+  return (
+    <div className={styles.homecontainer}>
+      <div className={styles.sidebar}>
+        <button
+          onClick={resetCards}
+          className={clsx("mb", "outline", "contained")}
+        >
+          Reset cards
+        </button>
+        <button className={clsx("outline", "contained")} onClick={changeOrder}>
+          Change order
+        </button>
+      </div>
+      <div className={styles.homecontent}>
+        {loading && <div>Loading...</div>}
+        {plants.map(({ id, name, img, showName, latinName }) => {
+          return (
+            <div className={styles.card} key={id}>
+              {!showName && (
+                <>
+                  {img ? (
+                    <img src={img} width="100px" height="100px" alt={name} />
+                  ) : (
+                    <img
+                      src="/dummy.png"
+                      width="100px"
+                      height="100px"
+                      alt={name}
+                    />
+                  )}
+                </>
+              )}
+              <span className={styles.cardtext}>{showName && latinName}</span>
+              <button onClick={() => handleChange(id)}>
+                {showName ? "Show Img" : "Show name"}
+              </button>
             </div>
-            <div className={styles.homecontent}>
-            {memoryOrder.map((item, index) => {
-                        return (
-                                <div 
-                                    className={styles.card}   
-                                    key={index} >
-                                        {!memoryStatus[index] && (
-                                            <>
-                                                {item.img ? (
-                                                    <img src={item.img} width="100px" height="100px" alt={item.name}/>
-                                                    
-                                                ) : (
-                                                    <img src="/dummy.png" width="100px" height="100px" alt={item.name}/>
-                                                )}
-                                            </>
-                                        )}
-                                        <span className={styles.cardtext}>
-                                            {memoryStatus[index]
-                                                ? item.latinName
-                                                : ' '}
-                                        </span>
-                                        <button
-                                            onClick={() => handleChange(index)}
-                                           
-                                        >
-                                            {memoryStatus[index]
-                                                ? 'Show Img'
-                                                : 'Show name'}
-                                        </button>
-                                </div>
-                        )
-                    })}
-            </div>
-        </div>
-    )
+          );
+        })}
+      </div>
+    </div>
+  );
 }
