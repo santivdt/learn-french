@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles/home.module.scss'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
+import clsx from 'clsx'
 
 export default function Home() {
     const [plants, setPlants] = useState([])
@@ -91,11 +92,14 @@ export default function Home() {
                         onClick={() => {
                             resetCards()
                         }}
-                        className="mb"
+                        className={clsx('mb', 'outline', 'contained')
+                    }
                     >
                         Reset cards
                     </button>
                     <button
+                     className={clsx('outline', 'contained')
+                }
                         onClick={() => {
                             changeOrder()
                         }}

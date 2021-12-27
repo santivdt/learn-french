@@ -107,7 +107,9 @@ export default function Quiz() {
                             return (
                                 <div key={index}>
                                     <button
-                                        
+                                        className={clsx(
+                                            'outline'
+                                        )}
                                         onClick={() => {
                                             handleAnswerGiven(item)
                                         }}
