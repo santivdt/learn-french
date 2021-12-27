@@ -113,7 +113,6 @@ export default function Editdata() {
 
     return (
         <>
-            <div className="flex-column">
                 <Snackbar
                     open={status.open}
                     autoHideDuration={3000}
@@ -153,7 +152,6 @@ export default function Editdata() {
                 >
                     Add
                 </Button>
-            </div>
         </>
     )
 }

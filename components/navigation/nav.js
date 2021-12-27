@@ -19,7 +19,7 @@ export default function Navigation() {
 
     return (
         <div className={styles.navcontainer}>
-            <div className={styles.company}><Link href="/">BRAVOBRAVO</Link></div>
+            <div className={styles.company}><Link href="/">BRAVO</Link></div>
             <div className={styles.itemcontainer}>
                 {menuItems.map((item, index) => {
                     return (
@@ -41,7 +41,9 @@ export default function Navigation() {
                 <GoX className={styles.close} size="50" onClick={() => toggleMenu()}/>
                 {menuItems.map((item, index) => {
                     return (
-                        <div key={index}>{item.title}</div>
+                        <div key={index} onClick={() => toggleMenu()}><Link href={item.url}>
+                        <a>{item.title}</a>
+                    </Link></div>
                     )
                 })}
             </div>

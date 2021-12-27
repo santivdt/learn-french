@@ -1,9 +1,9 @@
 html,
 body {
     padding: 0;
-    margin: 0 !important;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    margin: 0;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+        Helvetica Neue, sans-serif;
 }
 
 a {
@@ -27,12 +27,13 @@ button {
         rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
     color: #fff;
     cursor: pointer;
-    height: 2em;
-    line-height: 1.15;
+    height: 3.2em;
     margin: 12px 0 0;
     overflow: hidden;
-    padding: 0.5em;
+    padding: 0.8em;
     text-align: center;
+
+    letter-spacing: 1px;
 }
 
 button:disabled {
@@ -43,11 +44,29 @@ button.mb {
     margin-bottom: 1em;
 }
 
+button.outline {
+    background-color: white;
+    border: 1px solid #405cf5;
+    color: #405cf5;
+}
+
+button.contained {
+    max-width: 200px;
+}
+
+/* ============================================================================================================================*/
+/* ============================================================== UTILITY ========================================================*/
+/* ============================================================================================================================*/
+
 .flex-column {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
+
+/* ============================================================================================================================*/
+/* ============================================================== TABLE ========================================================*/
+/* ============================================================================================================================*/
 
 table {
     border-spacing: 0px;

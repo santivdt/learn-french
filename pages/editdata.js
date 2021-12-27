@@ -129,7 +129,7 @@ export default function Editdata() {
     }
 
     return (
-        <div className="flex-column">
+        <>
             <TextField
                     id="standard-basic"
                     label="Search"
@@ -258,6 +258,6 @@ export default function Editdata() {
                     })}
                 </tbody>
             </table>
-        </div>
+        </>
     )
 }
