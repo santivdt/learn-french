@@ -10,15 +10,15 @@ import {
 export default function WarningDialog({
     title,
     children,
-    handleClickCancel,
-    handleClickOke,
-    itemToDeleteKey,
+    cancelDialog,
+    confirmDialog,
+    id,
     state,
 }) {
     return (
         <Dialog
             open={state}
-            onClose={handleClickCancel}
+            onClose={cancelDialog}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
@@ -29,10 +29,8 @@ export default function WarningDialog({
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => handleClickOke(itemToDeleteKey)}>
-                    Oke
-                </Button>
-                <Button onClick={handleClickCancel} autoFocus>
+                <Button onClick={() => confirmDialog(id)}>Oke</Button>
+                <Button onClick={cancelDialog} autoFocus>
                     Cancel
                 </Button>
             </DialogActions>

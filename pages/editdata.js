@@ -27,6 +27,7 @@ export default function Editdata() {
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
     const [warningDialogOpen, setWarningDialogOpen] = useState(false)
+    const [itemToDelete, setItemToDelete] = useState(null)
     const items = search.length > 0 ? results : plants
 
     const handleSearch = (event) => {
@@ -78,18 +79,30 @@ export default function Editdata() {
         }
     }
 
-    const remove = async (doc) => {
+    const openDialog = (id) => {
+        setWarningDialogOpen(true)
+        setItemToDelete(id)
+    }
+
+    const cancelDialog = () => {
+        setWarningDialogOpen(false)
+        setItemToDelete(null)
+    }
+
+    const remove = async (id) => {
+        console.log('remove called', id)
         firebase
             .firestore()
             .collection('plants')
-            .doc(doc)
+            .doc(id)
             .delete()
             .then(() => {
-                console.log('yes'),
-                    setStatus('Your item has been deleted'),
+                setStatus('Your item has been deleted'),
                     setTimeout(() => {
                         setStatus(null)
-                    }, 2000)
+                    }, 2000),
+                    setWarningDialogOpen(false),
+                    setItemToDelete(null)
             })
             .catch((error) => {
                 console.error('Error removing document: ', error)
@@ -127,6 +140,15 @@ export default function Editdata() {
 
     return (
         <>
+            <WarningDialog
+                title="Are you sure?"
+                cancelDialog={cancelDialog}
+                confirmDialog={remove}
+                state={warningDialogOpen}
+                id={itemToDelete}
+            >
+                Are you sure you want to delete this item?
+            </WarningDialog>
             <TextField
                 id="standard-basic"
                 label="Search"
@@ -135,6 +157,7 @@ export default function Editdata() {
                 onChange={handleSearch}
                 value={search}
             />
+
             {status && <span className={styles.status}>{status}</span>}
             <table>
                 <thead>
@@ -200,7 +223,7 @@ export default function Editdata() {
                                 <td>
                                     <button
                                         disabled={isEditing}
-                                        onClick={() => remove(id)}
+                                        onClick={() => openDialog(id)}
                                     >
                                         Delete
                                     </button>
