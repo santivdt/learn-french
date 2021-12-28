@@ -153,7 +153,6 @@ export default function Editdata() {
     }
 
     useEffect(() => {
-        console.log('uefcalled')
         initFirebase()
         getWords()
     }, [results])
