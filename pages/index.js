@@ -77,6 +77,21 @@ export default function Home() {
                             key={id}
                             onClick={() => handleChange(id)}
                         >
+                            {showEnglish ? (
+                                <img
+                                    src="/english.png"
+                                    width="20"
+                                    height="20"
+                                    className={styles.flag}
+                                />
+                            ) : (
+                                <img
+                                    src="/french.png"
+                                    width="20"
+                                    height="20"
+                                    className={styles.flag}
+                                />
+                            )}
                             {showEnglish ? english : french}
                         </div>
                     )

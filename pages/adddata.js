@@ -7,9 +7,8 @@ import CloseIcon from '@mui/icons-material/Close'
 
 export default function Editdata() {
     const [newItem, setNewItem] = useState({
-        name: '',
-        latinName: '',
-        img: '',
+        english: '',
+        french: '',
     })
 
     const [status, setStatus] = useState({ open: false, text: '' })
