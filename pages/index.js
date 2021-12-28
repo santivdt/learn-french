@@ -33,13 +33,13 @@ export default function Home() {
         if (language) {
             const newWords = words.map((item) => ({
                 ...item,
-                showEnglish: false,
+                showEnglish: true,
             }))
             setWords(newWords)
         } else {
             const newWords = words.map((item) => ({
                 ...item,
-                showEnglish: true,
+                showEnglish: false,
             }))
             setWords(newWords)
         }
@@ -91,7 +91,7 @@ export default function Home() {
                     className={clsx('outline', 'contained')}
                     onClick={changeLanguage}
                 >
-                    {language ? 'En - Fr' : 'Fr - En'}
+                    {!language ? 'En - Fr' : 'Fr - En'}
                 </button>
             </div>
             <div className={styles.homecontent}>
