@@ -5,6 +5,7 @@ import { menuItems } from './menuitems.js'
 import { GoX } from 'react-icons/go'
 import { useState } from 'react'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 
 export default function Navigation() {
     const [menuVisible, setMenuVisible] = useState(false)
@@ -15,6 +16,8 @@ export default function Navigation() {
         console.log('2', menuVisible)
     }
 
+    const router = useRouter()
+
     return (
         <div className={styles.navcontainer}>
             <div className={styles.company}>
@@ -23,7 +26,12 @@ export default function Navigation() {
             <div className={styles.itemcontainer}>
                 {menuItems.map((item, index) => {
                     return (
-                        <span className={styles.item} key={index}>
+                        <span
+                            className={clsx(styles.item, {
+                                [styles.test]: router.pathname === item.url,
+                            })}
+                            key={index}
+                        >
                             <Link href={item.url}>
                                 <a>{item.title}</a>
                             </Link>

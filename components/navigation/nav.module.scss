@@ -18,6 +18,11 @@
     display: none;
 }
 
+.test {
+    text-decoration: underline;
+    color: green;
+}
+
 .itemcontainer {
     flex-grow: 5;
     display: flex;
