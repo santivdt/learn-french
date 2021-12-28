@@ -32,8 +32,12 @@ button {
     overflow: hidden;
     padding: 0.8em;
     text-align: center;
-
     letter-spacing: 1px;
+
+    &:hover {
+        background-color: white;
+        color: #405cf5;
+    }
 }
 
 button:disabled {
@@ -48,6 +52,11 @@ button.outline {
     background-color: white;
     border: 1px solid #405cf5;
     color: #405cf5;
+
+    &:hover {
+        background-color: #405cf5;
+        color: white;
+    }
 }
 
 button.contained {
@@ -62,6 +71,17 @@ button.contained {
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+
+.container-center {
+    display: flex;
+    justify-content: center;
+    max-width: 80%;
+
+    &.flex-column {
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
 
 /* ============================================================================================================================*/
