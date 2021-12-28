@@ -13,29 +13,10 @@ export default function Editdata() {
     })
 
     const [status, setStatus] = useState({ open: false, text: '' })
-    const [fileUrl, setFileUrl] = useState()
-    const [users, setUsers] = useState([])
 
     const handleClose = () => {
         setStatus({ open: false, text: '' })
     }
-
-    useEffect(() => {
-        initFirebase()
-        const fetchUsers = async () => {
-            const usersCollection = await firebase
-                .firestore()
-                .collection('users')
-                .get()
-            setUsers(
-                usersCollection.docs.map((doc) => {
-                    return doc.data()
-                })
-            )
-        }
-
-        fetchUsers()
-    }, [])
 
     const action = (
         <>
@@ -51,24 +32,21 @@ export default function Editdata() {
     )
 
     const addData = async () => {
-        console.log(newItem, 'to be set')
         try {
             await firebase
                 .firestore()
-                .collection('plants')
+                .collection('words')
                 .doc()
                 .set({
-                    name: newItem.name,
-                    latinName: newItem.latinName,
-                    img: newItem.img,
+                    english: newItem.english,
+                    french: newItem.french,
                     time_stamp: firebase.firestore.Timestamp.now(),
                 })
                 .then(
                     setStatus({ open: true, text: 'Your item was added!' }),
                     setNewItem({
-                        name: '',
-                        latinName: '',
-                        img: '',
+                        english: '',
+                        french: '',
                     })
                 )
         } catch (error) {
@@ -78,37 +56,13 @@ export default function Editdata() {
 
     const handleData = (input, type) => {
         switch (type) {
-            case 'name':
-                setNewItem({ ...newItem, name: input })
+            case 'english':
+                setNewItem({ ...newItem, english: input })
                 break
-            case 'latinName':
-                setNewItem({ ...newItem, latinName: input })
+            case 'french':
+                setNewItem({ ...newItem, french: input })
                 break
         }
-    }
-
-    const onFileChange = async (e) => {
-        console.log('img added')
-        const file = e.target.files[0]
-        const storageRef = firebase.storage().ref()
-        const fileRef = storageRef.child(file.name)
-        await fileRef.put(file)
-        setFileUrl(await fileRef.getDownloadURL())
-        console.log(fileUrl, 'fileurl?')
-        setNewItem({ ...newItem, img: fileUrl })
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        const username = e.target.username.value
-        if (!username) {
-            return
-        }
-        firebase
-            .firestore()
-            .collection('users')
-            .doc(username)
-            .set({ name: username, avatar: fileUrl })
     }
 
     return (
@@ -121,29 +75,25 @@ export default function Editdata() {
                 action={action}
             />
             <TextField
-                id="name"
-                label="Name"
+                id="english"
+                label="English"
                 variant="outlined"
-                value={newItem.name}
+                value={newItem.english}
                 onChange={(event, type) =>
-                    handleData(event.target.value, 'name')
+                    handleData(event.target.value, 'english')
                 }
                 sx={{ mb: 2 }}
             />
             <TextField
-                id="latinName"
-                label="Latin Name"
-                value={newItem.latinName}
+                id="french"
+                label="French"
+                value={newItem.french}
                 variant="outlined"
                 onChange={(event, type) =>
-                    handleData(event.target.value, 'latinName')
+                    handleData(event.target.value, 'french')
                 }
                 sx={{ mb: 2 }}
             />
-            <Button component="label" variant="outlined" sx={{ mb: 2 }}>
-                Upload IMG
-                <input type="file" hidden onChange={onFileChange} />
-            </Button>
             <Button
                 variant="contained"
                 onClick={() => {

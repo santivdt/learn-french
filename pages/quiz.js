@@ -1,4 +1,4 @@
-import { data } from '../data/data.js'
+import { data } from '../utils/getData.js'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import QuizResultsTable from '../components/quizResultsTable'

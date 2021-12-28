@@ -19,16 +19,16 @@ const doSearch = (nameKey, myArray) => {
 }
 
 export default function Editdata() {
-    const [plants, setPlants] = useState([])
+    const [words, setWords] = useState([])
     const [status, setStatus] = useState(null)
-    const [editName, setEditName] = useState('')
+    const [editEnglish, setEditEnglish] = useState('')
     const [loading, setLoading] = useState(false)
-    const [editLatinName, setEditLatinName] = useState('')
+    const [editFrench, setEditFrench] = useState('')
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
     const [warningDialogOpen, setWarningDialogOpen] = useState(false)
     const [itemToDelete, setItemToDelete] = useState(null)
-    const items = search.length > 0 ? results : plants
+    const items = search.length > 0 ? results : words
 
     const handleSearch = (event) => {
         setSearch(event.currentTarget.value)
@@ -43,15 +43,15 @@ export default function Editdata() {
     }
 
     const edit = (id) => {
-        const newPlants = plants.map((item) => ({
+        const newWords = words.map((item) => ({
             ...item,
             isEditing: item.id === id ? true : false,
         }))
-        setPlants(newPlants)
+        setWords(newWords)
 
-        const item = plants.find((item) => item.id === id)
-        setEditName(item.name)
-        setEditLatinName(item.latinName)
+        const item = word.find((item) => item.id === id)
+        setEditEnglish(item.english)
+        setEditFrench(item.french)
     }
 
     const save = async (id) => {
@@ -59,18 +59,18 @@ export default function Editdata() {
             setLoading(true)
             await firebase
                 .firestore()
-                .collection('plants')
+                .collection('words')
                 .doc(id)
-                .set({ name: editName, latinName: editLatinName })
+                .set({ english: editEnglish, french: editFrench })
 
-            const newPlants = [...plants]
-            const plantIndex = newPlants.findIndex((item) => item.id === id)
+            const newWords = [...words]
+            const wordIndex = newWords.findIndex((item) => item.id === id)
 
-            newPlants[plantIndex].isEditing = false
-            newPlants[plantIndex].name = editName
-            newPlants[plantIndex].latinName = editLatinName
+            newWords[wordIndex].isEditing = false
+            newWords[wordIndex].english = editEnglish
+            newWords[wordIndex].french = editFrench
 
-            setPlants(newPlants)
+            setWords(newWords)
             setLoading(false)
             showAlert()
         } catch (error) {
@@ -90,10 +90,9 @@ export default function Editdata() {
     }
 
     const remove = async (id) => {
-        console.log('remove called', id)
         firebase
             .firestore()
-            .collection('plants')
+            .collection('words')
             .doc(id)
             .delete()
             .then(() => {
@@ -109,32 +108,32 @@ export default function Editdata() {
             })
     }
 
-    const getPlants = async () => {
-        const p = []
+    const getWords = async () => {
+        const w = []
         setLoading(true)
         const querySnapshot = await firebase
             .firestore()
-            .collection('plants')
+            .collection('words')
             .get()
         querySnapshot.forEach((doc) =>
-            p.push({
+            w.push({
                 id: doc.id,
-                showName: false,
+                showEnglish: true,
                 isEditing: false,
                 ...doc.data(),
             })
         )
-        setPlants(p)
+        setWords(w)
         setLoading(false)
     }
 
     useEffect(() => {
         initFirebase()
-        getPlants()
+        getWords()
     }, [])
 
     useEffect(() => {
-        const items = doSearch(search, plants)
+        const items = doSearch(search, words)
         setResults(items)
     }, [search])
 
@@ -162,14 +161,14 @@ export default function Editdata() {
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Latin</th>
+                        <th>English</th>
+                        <th>French</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map(({ id, name, latinName, isEditing }) => {
+                    {items.map(({ id, english, french, isEditing }) => {
                         return (
                             <tr
                                 key={id}
@@ -182,31 +181,31 @@ export default function Editdata() {
                                 <td>
                                     {isEditing ? (
                                         <TextField
-                                            name={name}
-                                            value={editName}
+                                            name={english}
+                                            value={editEnglish}
                                             onChange={(event) =>
-                                                setEditName(
+                                                setEditEnglish(
                                                     event.currentTarget.value
                                                 )
                                             }
                                         />
                                     ) : (
-                                        name
+                                        english
                                     )}
                                 </td>
                                 <td>
                                     {isEditing ? (
                                         <TextField
-                                            name={latinName}
-                                            value={editLatinName}
+                                            name={french}
+                                            value={editFrench}
                                             onChange={(e) =>
-                                                setEditLatinName(
+                                                setEditFrench(
                                                     e.currentTarget.value
                                                 )
                                             }
                                         />
                                     ) : (
-                                        latinName
+                                        french
                                     )}
                                 </td>
                                 <td>
