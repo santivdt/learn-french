@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
-import { TextField } from '@mui/material'
 import WarningDialog from '../components/dialog.js'
 import styles from '../styles/editdata.module.scss'
 
@@ -173,17 +172,17 @@ export default function Editdata() {
             >
                 Are you sure you want to delete this item?
             </WarningDialog>
-            <TextField
+            <input
                 id="standard-basic"
                 label="Search"
                 variant="standard"
                 className={styles.search}
                 onChange={handleSearch}
                 value={search}
+                placeholder="Search ..."
             />
-
             {status && <span className={styles.status}>{status}</span>}
-            <table>
+            <table className={styles.table}>
                 <thead>
                     <tr>
                         <th>English</th>
