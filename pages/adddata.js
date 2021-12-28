@@ -97,6 +97,9 @@ export default function Editdata() {
                 sx={{ mb: 2 }}
             />
             <button
+                disabled={
+                    newItem.french.length < 1 && newItem.french.length < 1
+                }
                 className="contained"
                 onClick={() => {
                     addData()

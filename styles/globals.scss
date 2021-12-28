@@ -40,6 +40,13 @@ button {
     }
 }
 
+button[disabled] {
+    color: white;
+    cursor: no-drop!important;
+    border: 1px solid grey;
+    background-color: grey;
+}
+
 button:disabled {
     cursor: default;
 }
