@@ -4,6 +4,8 @@ import initFirebase from '../firebase/initFirebase.js'
 import { Button, TextField, Snackbar } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
+import clsx from 'clsx'
+import styles from '../styles/adddata.module.scss'
 
 export default function Editdata() {
     const [newItem, setNewItem] = useState({
@@ -73,6 +75,7 @@ export default function Editdata() {
                 message={status.text}
                 action={action}
             />
+
             <TextField
                 id="english"
                 label="English"
@@ -93,14 +96,14 @@ export default function Editdata() {
                 }
                 sx={{ mb: 2 }}
             />
-            <Button
-                variant="contained"
+            <button
+                className="contained"
                 onClick={() => {
                     addData()
                 }}
             >
                 Add
-            </Button>
+            </button>
         </>
     )
 }
