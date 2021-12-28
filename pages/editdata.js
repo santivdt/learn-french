@@ -5,19 +5,6 @@ import { TextField } from '@mui/material'
 import WarningDialog from '../components/dialog.js'
 import styles from '../styles/editdata.module.scss'
 
-const doSearch = (nameKey, myArray) => {
-    const results = []
-    for (var i = 0; i < myArray.length; i++) {
-        if (
-            myArray[i].name.includes(nameKey) ||
-            myArray[i].latinName.includes(nameKey)
-        ) {
-            results.push(myArray[i])
-        }
-    }
-    return results
-}
-
 export default function Editdata() {
     const [words, setWords] = useState([])
     const [status, setStatus] = useState(null)
@@ -34,6 +21,21 @@ export default function Editdata() {
         setSearch(event.currentTarget.value)
     }
 
+    const doSearch = (nameKey, myArray) => {
+        console.log('dosearch', 'nk', nameKey, 'ma', myArray)
+        //to do make not capital sensitive
+        const newResults = []
+        for (var i = 0; i < myArray.length; i++) {
+            if (
+                myArray[i].english.includes(nameKey) ||
+                myArray[i].french.includes(nameKey)
+            ) {
+                newResults.push(myArray[i])
+            }
+        }
+        return newResults
+    }
+
     const showAlert = () => {
         setStatus('Your item has been updated')
 
@@ -43,15 +45,27 @@ export default function Editdata() {
     }
 
     const edit = (id) => {
-        const newWords = words.map((item) => ({
-            ...item,
-            isEditing: item.id === id ? true : false,
-        }))
-        setWords(newWords)
-
-        const item = word.find((item) => item.id === id)
-        setEditEnglish(item.english)
-        setEditFrench(item.french)
+        if (search.length < 1) {
+            const newWords = words.map((item) => ({
+                ...item,
+                isEditing: item.id === id ? true : false,
+            }))
+            setWords(newWords)
+            const item = words.find((item) => item.id === id)
+            setEditEnglish(item.english)
+            setEditFrench(item.french)
+        } else if (search.length > 0) {
+            console.log('you are editing search results')
+            console.log(results)
+            const newSearchResults = results.map((item) => ({
+                ...item,
+                isEditing: item.id === id ? true : false,
+            }))
+            setResults(newSearchResults)
+            const item = results.find((item) => item.id === id)
+            setEditEnglish(item.english)
+            setEditFrench(item.french)
+        }
     }
 
     const save = async (id) => {
@@ -63,14 +77,25 @@ export default function Editdata() {
                 .doc(id)
                 .set({ english: editEnglish, french: editFrench })
 
-            const newWords = [...words]
-            const wordIndex = newWords.findIndex((item) => item.id === id)
+            if (search.length < 1) {
+                const newWords = [...words]
+                const wordIndex = newWords.findIndex((item) => item.id === id)
 
-            newWords[wordIndex].isEditing = false
-            newWords[wordIndex].english = editEnglish
-            newWords[wordIndex].french = editFrench
+                newWords[wordIndex].isEditing = false
+                newWords[wordIndex].english = editEnglish
+                newWords[wordIndex].french = editFrench
+                setWords(newWords)
+            } else if (search.length > 1) {
+                const newResults = [...results]
+                const resultIndex = newResults.findIndex(
+                    (item) => item.id === id
+                )
 
-            setWords(newWords)
+                newResults[resultIndex].isEditing = false
+                newResults[resultIndex].english = editEnglish
+                newResults[resultIndex].french = editFrench
+                setResults(newResults)
+            }
             setLoading(false)
             showAlert()
         } catch (error) {
@@ -128,9 +153,10 @@ export default function Editdata() {
     }
 
     useEffect(() => {
+        console.log('uefcalled')
         initFirebase()
         getWords()
-    }, [])
+    }, [results])
 
     useEffect(() => {
         const items = doSearch(search, words)
