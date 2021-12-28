@@ -15,6 +15,7 @@ const shuffleArray = (a) => {
 export default function Home() {
     const [loading, setLoading] = useState(false)
     const [words, setWords] = useState([])
+    const [language, setLanguage] = useState(true)
 
     const changeOrder = () => {
         const newWords = [...shuffleArray(words)]
@@ -29,8 +30,27 @@ export default function Home() {
     }
 
     const resetCards = () => {
-        const newWords = words.map((item) => ({ ...item, showEnglish: true }))
-        setWords(newWords)
+        if (language) {
+            const newWords = words.map((item) => ({
+                ...item,
+                showEnglish: false,
+            }))
+            setWords(newWords)
+        } else {
+            const newWords = words.map((item) => ({
+                ...item,
+                showEnglish: true,
+            }))
+            setWords(newWords)
+        }
+    }
+
+    const changeLanguage = () => {
+        setLanguage((state) => !state)
+        const newWords = [...words]
+        newWords.map((item) => {
+            item.showEnglish = !item.showEnglish
+        })
     }
 
     const getWords = async () => {
@@ -62,10 +82,16 @@ export default function Home() {
                     Reset cards
                 </button>
                 <button
-                    className={clsx('outline', 'contained')}
+                    className={clsx('mb', 'outline', 'contained')}
                     onClick={changeOrder}
                 >
                     Change order
+                </button>
+                <button
+                    className={clsx('outline', 'contained')}
+                    onClick={changeLanguage}
+                >
+                    {language ? 'En - Fr' : 'Fr - En'}
                 </button>
             </div>
             <div className={styles.homecontent}>
