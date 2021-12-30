@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
-import QuizResultsTable from '../components/quizResultsTable'
+import { useState } from 'react'
+import QuizResultsTable from '../components/QuizResultsTable'
 import clsx from 'clsx'
 import styles from '../styles/quiz.module.scss'
 import { data } from '../utils/data.js'
-import { red } from '@mui/material/colors'
+import initFirebase from '../firebase/initFirebase.js'
+import firebase from 'firebase'
 
 const shuffleArray = (a) => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -13,7 +14,10 @@ const shuffleArray = (a) => {
     return a
 }
 
-export default function Quiz() {
+export default function Quiz(props) {
+    const { entries } = props
+    console.log('entries', entries)
+
     const [words, setWords] = useState(data)
     const [currentItem, setCurrentItem] = useState(0)
     const [showScore, setShowScore] = useState(false)
@@ -126,4 +130,18 @@ export default function Quiz() {
             </div>
         </div>
     )
+}
+
+export async function getServerSideProps() {
+    initFirebase()
+    const w = []
+
+    const querySnapshot = await firebase.firestore().collection('test').get()
+    querySnapshot.forEach((doc) =>
+        w.push({ id: doc.id, showEnglish: true, ...doc.data() })
+    )
+
+    return {
+        props: { words: w },
+    }
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
-import WarningDialog from '../components/dialog.js'
+import WarningDialog from '../components/Dialog.js'
 import styles from '../styles/editdata.module.scss'
 
 export default function Editdata() {

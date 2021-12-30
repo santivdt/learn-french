@@ -29,7 +29,7 @@ export default function WarningDialog({
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => confirmDialog(id)}>Oke</Button>
+                <Button onClick={() => confirmDialog(id)}>Yes</Button>
                 <Button onClick={cancelDialog} autoFocus>
                     Cancel
                 </Button>

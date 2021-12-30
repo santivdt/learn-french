@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import styles from './nav.module.scss'
+import styles from './index.module.scss'
 import { GoThreeBars } from 'react-icons/go'
 import { menuItems } from './menuitems.js'
 import { GoX } from 'react-icons/go'
