@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import '../styles/globals.scss'
-import Layout from '../components/layout/layout.js'
+import Layout from '../components/layout/index.js'
+import CoockieBar from '../components/Coockiebar'
 
 export default function MyApp(props) {
     const { Component, pageProps } = props
@@ -25,6 +26,7 @@ export default function MyApp(props) {
                 />
             </Head>
             <Layout>
+                <CoockieBar />
                 <Component {...pageProps} />
             </Layout>
         </React.Fragment>
