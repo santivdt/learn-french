@@ -3,8 +3,6 @@ import QuizResultsTable from '../components/QuizResultsTable'
 import clsx from 'clsx'
 import styles from '../styles/quiz.module.scss'
 import { data } from '../utils/data.js'
-import initFirebase from '../firebase/initFirebase.js'
-import firebase from 'firebase'
 
 const shuffleArray = (a) => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -130,18 +128,4 @@ export default function Quiz(props) {
             </div>
         </div>
     )
-}
-
-export async function getServerSideProps() {
-    initFirebase()
-    const w = []
-
-    const querySnapshot = await firebase.firestore().collection('test').get()
-    querySnapshot.forEach((doc) =>
-        w.push({ id: doc.id, showEnglish: true, ...doc.data() })
-    )
-
-    return {
-        props: { words: w },
-    }
 }
