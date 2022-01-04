@@ -207,9 +207,9 @@ export default function Editdata() {
                                         <TextField
                                             name={english}
                                             value={editEnglish}
-                                            onChange={(event) =>
+                                            onChange={(e) =>
                                                 setEditEnglish(
-                                                    event.currentTarget.value
+                                                    e.currentTarget.value
                                                 )
                                             }
                                         />
