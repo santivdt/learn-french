@@ -7,9 +7,8 @@ import styles from '../styles/editdata.module.scss'
 export default function Editdata() {
     const [words, setWords] = useState([])
     const [status, setStatus] = useState(null)
-    const [editEnglish, setEditEnglish] = useState('')
     const [loading, setLoading] = useState(false)
-    const [editFrench, setEditFrench] = useState('')
+    const [editItem, setEditItem] = useState({ english: '', french: '' })
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
     const [warningDialogOpen, setWarningDialogOpen] = useState(false)
@@ -21,7 +20,6 @@ export default function Editdata() {
     }
 
     const doSearch = (nameKey, myArray) => {
-        console.log('dosearch', 'nk', nameKey, 'ma', myArray)
         //to do make not capital sensitive
         const newResults = []
         for (var i = 0; i < myArray.length; i++) {
@@ -37,7 +35,6 @@ export default function Editdata() {
 
     const showAlert = () => {
         setStatus('Your item has been updated')
-
         setTimeout(() => {
             setStatus(null)
         }, 2000)
@@ -49,21 +46,27 @@ export default function Editdata() {
                 ...item,
                 isEditing: item.id === id ? true : false,
             }))
+
             setWords(newWords)
             const item = words.find((item) => item.id === id)
-            setEditEnglish(item.english)
-            setEditFrench(item.french)
+
+            setEditItem({
+                ...editItem,
+                english: item.english,
+                french: item.french,
+            })
         } else if (search.length > 0) {
-            console.log('you are editing search results')
-            console.log(results)
             const newSearchResults = results.map((item) => ({
                 ...item,
                 isEditing: item.id === id ? true : false,
             }))
             setResults(newSearchResults)
             const item = results.find((item) => item.id === id)
-            setEditEnglish(item.english)
-            setEditFrench(item.french)
+            setEditItem({
+                ...editItem,
+                english: item.english,
+                french: item.french,
+            })
         }
     }
 
@@ -74,15 +77,15 @@ export default function Editdata() {
                 .firestore()
                 .collection('words')
                 .doc(id)
-                .set({ english: editEnglish, french: editFrench })
+                .set({ english: editItem.english, french: editItem.french })
 
             if (search.length < 1) {
                 const newWords = [...words]
                 const wordIndex = newWords.findIndex((item) => item.id === id)
 
                 newWords[wordIndex].isEditing = false
-                newWords[wordIndex].english = editEnglish
-                newWords[wordIndex].french = editFrench
+                newWords[wordIndex].english = editItem.english
+                newWords[wordIndex].french = editItem.french
                 setWords(newWords)
             } else if (search.length > 1) {
                 const newResults = [...results]
@@ -91,8 +94,8 @@ export default function Editdata() {
                 )
 
                 newResults[resultIndex].isEditing = false
-                newResults[resultIndex].english = editEnglish
-                newResults[resultIndex].french = editFrench
+                newWords[wordIndex].english = editItem.english
+                newWords[wordIndex].french = editItem.french
                 setResults(newResults)
             }
             setLoading(false)
@@ -130,6 +133,15 @@ export default function Editdata() {
             .catch((error) => {
                 console.error('Error removing document: ', error)
             })
+    }
+
+    const handleChange = (event) => {
+        setEditItem((prevEditItem) => {
+            return {
+                ...prevEditItem,
+                [event.target.name]: event.target.value,
+            }
+        })
     }
 
     const getWords = async () => {
@@ -204,14 +216,11 @@ export default function Editdata() {
                             >
                                 <td>
                                     {isEditing ? (
-                                        <TextField
-                                            name={english}
-                                            value={editEnglish}
-                                            onChange={(e) =>
-                                                setEditEnglish(
-                                                    e.currentTarget.value
-                                                )
-                                            }
+                                        <input
+                                            type="text"
+                                            name="english"
+                                            value={editItem.english}
+                                            onChange={handleChange}
                                         />
                                     ) : (
                                         english
@@ -219,14 +228,11 @@ export default function Editdata() {
                                 </td>
                                 <td>
                                     {isEditing ? (
-                                        <TextField
-                                            name={french}
-                                            value={editFrench}
-                                            onChange={(e) =>
-                                                setEditFrench(
-                                                    e.currentTarget.value
-                                                )
-                                            }
+                                        <input
+                                            type="text"
+                                            name="french"
+                                            value={editItem.french}
+                                            onChange={handleChange}
                                         />
                                     ) : (
                                         french
