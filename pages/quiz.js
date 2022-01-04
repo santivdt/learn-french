@@ -12,10 +12,7 @@ const shuffleArray = (a) => {
     return a
 }
 
-export default function Quiz(props) {
-    const { entries } = props
-    console.log('entries', entries)
-
+export default function Quiz() {
     const [words, setWords] = useState(data)
     const [currentItem, setCurrentItem] = useState(0)
     const [showScore, setShowScore] = useState(false)
@@ -70,61 +67,87 @@ export default function Quiz(props) {
     }
 
     return (
-        <div className="container-center">
-            <div className={clsx(styles.quizcard, 'flex-column')}>
-                {!showScore && (
-                    <>
-                        <h3>
-                            Question {currentItem + 1} of {words.length}
-                        </h3>
-                        <div className={styles.outerbar}>
-                            <div
-                                className={styles.innerbar}
-                                style={{
-                                    width: `calc(1% * ${stepSize} * ${currentItem})`,
-                                }}
-                            >
-                                {Math.floor(stepSize * currentItem)}%
-                            </div>
-                        </div>
-                        <h2>{words[currentItem].english}</h2>
-                    </>
-                )}
-                {showScore ? (
-                    <div>
-                        <h2>
-                            Je score is: {score} / {words.length} (
-                            {Math.floor((score / words.length) * 100)}%)
-                        </h2>
-                        <button
-                            className={clsx('outline', 'mb', 'contained')}
-                            onClick={startAgain}
-                        >
-                            Start again
-                        </button>
-                        <QuizResultsTable
-                            data={words}
-                            answersGivenByUser={answersGivenByUser}
-                        />
-                    </div>
-                ) : (
-                    <>
-                        {answerOptionArray.map((item, index) => {
-                            return (
-                                <div key={index}>
-                                    <button
-                                        className={clsx('outline')}
-                                        onClick={() => {
-                                            handleAnswerGiven(item)
+        <div className="sidebarcontainer">
+            <div className="sidebar">
+                <input
+                    type="radio"
+                    id="html"
+                    name="fav_language"
+                    value="HTML"
+                />
+                <label>HTML</label>
+                <input type="radio" id="css" name="fav_language" value="CSS" />
+                <label>CSS</label>
+                <input
+                    type="radio"
+                    id="javascript"
+                    name="fav_language"
+                    value="JavaScript"
+                />
+                <label>JavaScript</label>
+            </div>
+            <div className="maincontent-sidebar">
+                <div className={clsx(styles.quizcard, 'flex-column')}>
+                    <div className={styles.homecontainer}>
+                        {!showScore && (
+                            <>
+                                <h3>
+                                    Question {currentItem + 1} of {words.length}
+                                </h3>
+                                <div className={styles.outerbar}>
+                                    <div
+                                        className={styles.innerbar}
+                                        style={{
+                                            width: `calc(1% * ${stepSize} * ${currentItem})`,
                                         }}
                                     >
-                                        {item}
-                                    </button>
+                                        {Math.floor(stepSize * currentItem)}%
+                                    </div>
                                 </div>
-                            )
-                        })}
-                    </>
-                )}
+                                <h2>{words[currentItem].english}</h2>
+                            </>
+                        )}
+                        {showScore ? (
+                            <div>
+                                <h2>
+                                    Je score is: {score} / {words.length} (
+                                    {Math.floor((score / words.length) * 100)}%)
+                                </h2>
+                                <button
+                                    className={clsx(
+                                        'outline',
+                                        'mb',
+                                        'contained'
+                                    )}
+                                    onClick={startAgain}
+                                >
+                                    Start again
+                                </button>
+                                <QuizResultsTable
+                                    data={words}
+                                    answersGivenByUser={answersGivenByUser}
+                                />
+                            </div>
+                        ) : (
+                            <>
+                                {answerOptionArray.map((item, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <button
+                                                className={clsx('outline')}
+                                                onClick={() => {
+                                                    handleAnswerGiven(item)
+                                                }}
+                                            >
+                                                {item}
+                                            </button>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -73,8 +73,8 @@ export default function Home() {
     }, [])
 
     return (
-        <div className={styles.homecontainer}>
-            <div className={styles.sidebar}>
+        <div className="sidebarcontainer">
+            <div className="sidebar">
                 <button
                     onClick={resetCards}
                     className={clsx('mb', 'outline', 'contained')}
@@ -94,7 +94,7 @@ export default function Home() {
                     {!language ? 'En - Fr' : 'Fr - En'}
                 </button>
             </div>
-            <div className={styles.homecontent}>
+            <div className="maincontent-sidebar">
                 {loading && <div>Loading...</div>}
                 {words.map(({ id, english, french, showEnglish }) => {
                     return (
