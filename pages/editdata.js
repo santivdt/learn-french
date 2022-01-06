@@ -10,27 +10,15 @@ export default function Editdata() {
     const [loading, setLoading] = useState(false)
     const [editItem, setEditItem] = useState({ english: '', french: '' })
     const [search, setSearch] = useState('')
-    const [results, setResults] = useState([])
     const [warningDialogOpen, setWarningDialogOpen] = useState(false)
     const [itemToDelete, setItemToDelete] = useState(null)
-    const items = search.length > 0 ? results : words
 
     const handleSearch = (event) => {
         setSearch(event.currentTarget.value)
     }
 
-    const doSearch = (nameKey, myArray) => {
-        //to do make not capital sensitive
-        const newResults = []
-        for (var i = 0; i < myArray.length; i++) {
-            if (
-                myArray[i].english.includes(nameKey) ||
-                myArray[i].french.includes(nameKey)
-            ) {
-                newResults.push(myArray[i])
-            }
-        }
-        return newResults
+    const isFilteredIn = (searchWord, english, french) => {
+        return english.includes(searchWord) || french.includes(searchWord)
     }
 
     const showAlert = () => {
@@ -41,33 +29,19 @@ export default function Editdata() {
     }
 
     const edit = (id) => {
-        if (search.length < 1) {
-            const newWords = words.map((item) => ({
-                ...item,
-                isEditing: item.id === id ? true : false,
-            }))
+        const newWords = words.map((item) => ({
+            ...item,
+            isEditing: item.id === id ? true : false,
+        }))
 
-            setWords(newWords)
-            const item = words.find((item) => item.id === id)
+        setWords(newWords)
+        const item = words.find((item) => item.id === id)
 
-            setEditItem({
-                ...editItem,
-                english: item.english,
-                french: item.french,
-            })
-        } else if (search.length > 0) {
-            const newSearchResults = results.map((item) => ({
-                ...item,
-                isEditing: item.id === id ? true : false,
-            }))
-            setResults(newSearchResults)
-            const item = results.find((item) => item.id === id)
-            setEditItem({
-                ...editItem,
-                english: item.english,
-                french: item.french,
-            })
-        }
+        setEditItem({
+            ...editItem,
+            english: item.english,
+            french: item.french,
+        })
     }
 
     const save = async (id) => {
@@ -79,27 +53,9 @@ export default function Editdata() {
                 .doc(id)
                 .set({ english: editItem.english, french: editItem.french })
 
-            if (search.length < 1) {
-                const newWords = [...words]
-                const wordIndex = newWords.findIndex((item) => item.id === id)
-
-                newWords[wordIndex].isEditing = false
-                newWords[wordIndex].english = editItem.english
-                newWords[wordIndex].french = editItem.french
-                setWords(newWords)
-            } else if (search.length > 1) {
-                const newResults = [...results]
-                const resultIndex = newResults.findIndex(
-                    (item) => item.id === id
-                )
-
-                newResults[resultIndex].isEditing = false
-                newWords[wordIndex].english = editItem.english
-                newWords[wordIndex].french = editItem.french
-                setResults(newResults)
-            }
             setLoading(false)
             showAlert()
+            getWords()
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -136,10 +92,11 @@ export default function Editdata() {
     }
 
     const handleChange = (event) => {
+        const { name, value } = event.target
         setEditItem((prevEditItem) => {
             return {
                 ...prevEditItem,
-                [event.target.name]: event.target.value,
+                [name]: value,
             }
         })
     }
@@ -166,12 +123,7 @@ export default function Editdata() {
     useEffect(() => {
         initFirebase()
         getWords()
-    }, [results])
-
-    useEffect(() => {
-        const items = doSearch(search, words)
-        setResults(items)
-    }, [search])
+    }, [])
 
     return (
         <>
@@ -204,61 +156,63 @@ export default function Editdata() {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map(({ id, english, french, isEditing }) => {
-                        return (
-                            <tr
-                                key={id}
-                                sx={{
-                                    '&:last-child td, &:last-child th': {
-                                        border: 0,
-                                    },
-                                }}
-                            >
-                                <td>
-                                    {isEditing ? (
-                                        <input
-                                            type="text"
-                                            name="english"
-                                            value={editItem.english}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        english
-                                    )}
-                                </td>
-                                <td>
-                                    {isEditing ? (
-                                        <input
-                                            type="text"
-                                            name="french"
-                                            value={editItem.french}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        french
-                                    )}
-                                </td>
-                                <td>
-                                    {isEditing ? (
-                                        <button onClick={() => save(id)}>
-                                            Save
+                    {words.map(({ id, english, french, isEditing }) => {
+                        if (isFilteredIn(search, english, french)) {
+                            return (
+                                <tr
+                                    key={id}
+                                    sx={{
+                                        '&:last-child td, &:last-child th': {
+                                            border: 0,
+                                        },
+                                    }}
+                                >
+                                    <td>
+                                        {isEditing ? (
+                                            <input
+                                                type="text"
+                                                name="english"
+                                                value={editItem.english}
+                                                onChange={handleChange}
+                                            />
+                                        ) : (
+                                            english
+                                        )}
+                                    </td>
+                                    <td>
+                                        {isEditing ? (
+                                            <input
+                                                type="text"
+                                                name="french"
+                                                value={editItem.french}
+                                                onChange={handleChange}
+                                            />
+                                        ) : (
+                                            french
+                                        )}
+                                    </td>
+                                    <td>
+                                        {isEditing ? (
+                                            <button onClick={() => save(id)}>
+                                                Save
+                                            </button>
+                                        ) : (
+                                            <button onClick={() => edit(id)}>
+                                                Edit
+                                            </button>
+                                        )}
+                                    </td>
+                                    <td>
+                                        <button
+                                            disabled={isEditing}
+                                            onClick={() => openDialog(id)}
+                                        >
+                                            Delete
                                         </button>
-                                    ) : (
-                                        <button onClick={() => edit(id)}>
-                                            Edit
-                                        </button>
-                                    )}
-                                </td>
-                                <td>
-                                    <button
-                                        disabled={isEditing}
-                                        onClick={() => openDialog(id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        )
+                                    </td>
+                                </tr>
+                            )
+                        }
                     })}
                 </tbody>
             </table>
