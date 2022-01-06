@@ -156,64 +156,94 @@ export default function Editdata() {
                     </tr>
                 </thead>
                 <tbody>
-                    {words.map(({ id, english, french, isEditing }) => {
-                        if (isFilteredIn(search, english, french)) {
-                            return (
-                                <tr
-                                    key={id}
-                                    sx={{
-                                        '&:last-child td, &:last-child th': {
-                                            border: 0,
-                                        },
-                                    }}
-                                >
-                                    <td>
-                                        {isEditing ? (
-                                            <input
-                                                type="text"
-                                                name="english"
-                                                value={editItem.english}
-                                                onChange={handleChange}
-                                            />
-                                        ) : (
-                                            english
-                                        )}
-                                    </td>
-                                    <td>
-                                        {isEditing ? (
-                                            <input
-                                                type="text"
-                                                name="french"
-                                                value={editItem.french}
-                                                onChange={handleChange}
-                                            />
-                                        ) : (
-                                            french
-                                        )}
-                                    </td>
-                                    <td>
-                                        {isEditing ? (
-                                            <button onClick={() => save(id)}>
-                                                Save
-                                            </button>
-                                        ) : (
-                                            <button onClick={() => edit(id)}>
-                                                Edit
-                                            </button>
-                                        )}
-                                    </td>
-                                    <td>
-                                        <button
-                                            disabled={isEditing}
-                                            onClick={() => openDialog(id)}
-                                        >
-                                            Delete
+                    {words
+                        .filter(({ english, french }) => {
+                            // normalize the word to match with
+                            const englishNormalized = english.toLowerCase()
+                            const frenshNormalized = french.toLowerCase()
+
+                            // normalize the query
+                            const query = search.toLowerCase()
+
+                            // check if the query matches the normalized english or french string
+                            if (
+                                englishNormalized.includes(query) ||
+                                frenshNormalized.includes(query)
+                            ) {
+                                // if the query matches the english or french string, continue to next item (return current item)
+                                return true
+                            }
+                        })
+                        /* 
+                        SHORT VERISION:
+                        ===============
+
+                        .filter(
+                            ({ english, french }) =>
+                                english
+                                    .toLowerCase()
+                                    .includes(search.toLowerCase()) ||
+                                french
+                                    .toLowerCase()
+                                    .includes(search.toLowerCase())
+                        )
+                        
+                        ===============
+                        */
+                        .map(({ id, english, french, isEditing }) => (
+                            <tr
+                                key={id}
+                                sx={{
+                                    '&:last-child td, &:last-child th': {
+                                        border: 0,
+                                    },
+                                }}
+                            >
+                                <td>
+                                    {isEditing ? (
+                                        <input
+                                            type="text"
+                                            name="english"
+                                            value={editItem.english}
+                                            onChange={handleChange}
+                                        />
+                                    ) : (
+                                        english
+                                    )}
+                                </td>
+                                <td>
+                                    {isEditing ? (
+                                        <input
+                                            type="text"
+                                            name="french"
+                                            value={editItem.french}
+                                            onChange={handleChange}
+                                        />
+                                    ) : (
+                                        french
+                                    )}
+                                </td>
+                                <td>
+                                    {isEditing ? (
+                                        <button onClick={() => save(id)}>
+                                            Save
                                         </button>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    })}
+                                    ) : (
+                                        <button onClick={() => edit(id)}>
+                                            Edit
+                                        </button>
+                                    )}
+                                </td>
+                                <td>
+                                    <button
+                                        disabled={isEditing}
+                                        onClick={() => openDialog(id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
         </>
