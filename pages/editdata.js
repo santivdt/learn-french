@@ -17,10 +17,6 @@ export default function Editdata() {
         setSearch(event.currentTarget.value)
     }
 
-    const isFilteredIn = (searchWord, english, french) => {
-        return english.includes(searchWord) || french.includes(searchWord)
-    }
-
     const showAlert = () => {
         setStatus('Your item has been updated')
         setTimeout(() => {
