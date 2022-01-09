@@ -5,7 +5,7 @@ import '../styles/globals.scss'
 import Layout from '../components/layout/index.js'
 import CoockieBar from '../components/Coockiebar'
 
-export default function MyApp(props) {
+const MyApp = (props) => {
     const { Component, pageProps } = props
 
     React.useEffect(() => {
@@ -37,3 +37,5 @@ MyApp.propTypes = {
     Component: PropTypes.elementType.isRequired,
     pageProps: PropTypes.object.isRequired,
 }
+
+export default MyApp

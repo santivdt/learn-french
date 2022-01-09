@@ -1,13 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import firebase from 'firebase'
-import initFirebase from '../firebase/initFirebase.js'
-import { Button, TextField, Snackbar } from '@mui/material'
+import { TextField, Snackbar } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import clsx from 'clsx'
-import styles from '../styles/adddata.module.scss'
 
-export default function Editdata() {
+const Editdata = () => {
     const [newItem, setNewItem] = useState({
         english: '',
         french: '',
@@ -110,3 +107,5 @@ export default function Editdata() {
         </>
     )
 }
+
+export default Editdata

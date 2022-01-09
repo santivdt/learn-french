@@ -7,14 +7,14 @@ import {
     DialogTitle,
 } from '@mui/material'
 
-export default function WarningDialog({
+const WarningDialog = ({
     title,
     children,
     cancelDialog,
     confirmDialog,
     id,
     state,
-}) {
+}) => {
     return (
         <Dialog
             open={state}
@@ -37,3 +37,5 @@ export default function WarningDialog({
         </Dialog>
     )
 }
+
+export default WarningDialog

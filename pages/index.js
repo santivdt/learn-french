@@ -3,16 +3,9 @@ import styles from '../styles/home.module.scss'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
 import clsx from 'clsx'
+import { shuffleArray } from '../utils/helpers'
 
-const shuffleArray = (a) => {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        ;[a[i], a[j]] = [a[j], a[i]]
-    }
-    return a
-}
-
-export default function Home() {
+const Home = () => {
     const [loading, setLoading] = useState(false)
     const [words, setWords] = useState([])
     const [language, setLanguage] = useState(true)
@@ -94,7 +87,7 @@ export default function Home() {
                     {!language ? 'En - Fr' : 'Fr - En'}
                 </button>
             </div>
-            <div className="maincontent-sidebar">
+            <div className={clsx('maincontent-sidebar', styles.grid)}>
                 {loading && <div>Loading...</div>}
                 {words.map(({ id, english, french, showEnglish }) => {
                     return (
@@ -126,3 +119,5 @@ export default function Home() {
         </div>
     )
 }
+
+export default Home

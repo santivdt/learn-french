@@ -2,7 +2,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check'
 import { red, green } from '@mui/material/colors'
 
-export default function QuizResultsTable({ data, answersGivenByUser }) {
+const QuizResultsTable = ({ data, answersGivenByUser }) => {
     return (
         <table>
             <thead>
@@ -36,3 +36,5 @@ export default function QuizResultsTable({ data, answersGivenByUser }) {
         </table>
     )
 }
+
+export default QuizResultsTable

@@ -2,7 +2,7 @@ import Navigation from '../navigation/nav.js'
 import styles from './index.module.scss'
 import Footer from '../footer'
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
     return (
         <div className={styles.container}>
             <Navigation />
@@ -13,3 +13,5 @@ export default function Layout({ children }) {
         </div>
     )
 }
+
+export default Layout

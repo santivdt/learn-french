@@ -3,16 +3,9 @@ import QuizResultsTable from '../components/QuizResultsTable'
 import clsx from 'clsx'
 import styles from '../styles/quiz.module.scss'
 import { data } from '../utils/data.js'
+import { shuffleArray } from '../utils/helpers'
 
-const shuffleArray = (a) => {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        ;[a[i], a[j]] = [a[j], a[i]]
-    }
-    return a
-}
-
-export default function Quiz() {
+const Quiz = () => {
     const [words, setWords] = useState(data)
     const [currentItem, setCurrentItem] = useState(0)
     const [showScore, setShowScore] = useState(false)
@@ -152,3 +145,5 @@ export default function Quiz() {
         </div>
     )
 }
+
+export default Quiz

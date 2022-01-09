@@ -4,7 +4,7 @@ import firebase from 'firebase'
 import WarningDialog from '../components/Dialog.js'
 import styles from '../styles/editdata.module.scss'
 
-export default function Editdata() {
+const Editdata = () => {
     const [words, setWords] = useState([])
     const [status, setStatus] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -153,27 +153,6 @@ export default function Editdata() {
                 </thead>
                 <tbody>
                     {words
-                        .filter(({ english, french }) => {
-                            // normalize the word to match with
-                            const englishNormalized = english.toLowerCase()
-                            const frenshNormalized = french.toLowerCase()
-
-                            // normalize the query
-                            const query = search.toLowerCase()
-
-                            // check if the query matches the normalized english or french string
-                            if (
-                                englishNormalized.includes(query) ||
-                                frenshNormalized.includes(query)
-                            ) {
-                                // if the query matches the english or french string, continue to next item (return current item)
-                                return true
-                            }
-                        })
-                        /* 
-                        SHORT VERISION:
-                        ===============
-
                         .filter(
                             ({ english, french }) =>
                                 english
@@ -183,9 +162,6 @@ export default function Editdata() {
                                     .toLowerCase()
                                     .includes(search.toLowerCase())
                         )
-                        
-                        ===============
-                        */
                         .map(({ id, english, french, isEditing }) => (
                             <tr
                                 key={id}
@@ -245,3 +221,5 @@ export default function Editdata() {
         </>
     )
 }
+
+export default Editdata

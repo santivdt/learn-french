@@ -7,7 +7,7 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
-export default function Navigation() {
+const Navigation = () => {
     const [menuVisible, setMenuVisible] = useState(false)
 
     const toggleMenu = () => {
@@ -67,3 +67,5 @@ export default function Navigation() {
         </div>
     )
 }
+
+export default Navigation

@@ -11,7 +11,7 @@ const clientCredentials = {
     appId: '1:1012912929618:web:997f6812cbc27c5bd1988b',
 }
 
-export default function initFirebase() {
+const initFirebase = () => {
     if (!firebase.apps.length) {
         firebase.initializeApp(clientCredentials)
         // Check that `window` is in scope for the analytics module!
@@ -25,3 +25,5 @@ export default function initFirebase() {
         console.log('Firebase was successfully init.')
     }
 }
+
+export default initFirebase
