@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import '../styles/globals.scss'
 import Layout from '../components/layout/index.js'
 import CoockieBar from '../components/Coockiebar'
+import { useState, useEffect } from 'react'
 
 const MyApp = (props) => {
+    const [darkMode, setDarkMode] = useState(true)
+
     const { Component, pageProps } = props
 
-    React.useEffect(() => {
+    useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side')
         if (jssStyles) {
