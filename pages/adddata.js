@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import firebase from 'firebase'
-import { TextField, Snackbar } from '@mui/material'
+import initFirebase from '../firebase/initFirebase'
+import { Snackbar } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 
@@ -10,10 +11,10 @@ const Editdata = () => {
         french: '',
     })
 
-    const [status, setStatus] = useState({ open: false, text: '' })
+    const [status, setStatus] = useState({ open: false, text: null })
 
     const handleClose = () => {
-        setStatus({ open: false, text: '' })
+        setStatus({ open: false, text: null })
     }
 
     const action = (
@@ -30,6 +31,7 @@ const Editdata = () => {
     )
 
     const addData = async () => {
+        initFirebase()
         try {
             await firebase
                 .firestore()
@@ -52,15 +54,11 @@ const Editdata = () => {
         }
     }
 
-    const handleData = (input, type) => {
-        switch (type) {
-            case 'english':
-                setNewItem({ ...newItem, english: input })
-                break
-            case 'french':
-                setNewItem({ ...newItem, french: input })
-                break
-        }
+    const handleData = (event) => {
+        setNewItem((prevNewItem) => ({
+            ...prevNewItem,
+            [event.target.name]: event.target.value,
+        }))
     }
 
     return (
@@ -72,26 +70,21 @@ const Editdata = () => {
                 message={status.text}
                 action={action}
             />
-
-            <TextField
+            <input
                 id="english"
-                label="English"
-                variant="outlined"
+                name="english"
                 value={newItem.english}
-                onChange={(event, type) =>
-                    handleData(event.target.value, 'english')
-                }
-                sx={{ mb: 2 }}
+                onChange={handleData}
+                className="textfield-input"
+                placeholder="English.."
             />
-            <TextField
+            <input
                 id="french"
-                label="French"
+                name="french"
                 value={newItem.french}
-                variant="outlined"
-                onChange={(event, type) =>
-                    handleData(event.target.value, 'french')
-                }
-                sx={{ mb: 2 }}
+                onChange={handleData}
+                className="textfield-input"
+                placeholder="French"
             />
             <button
                 disabled={
