@@ -17,7 +17,7 @@ const MyApp = (props) => {
     }, [])
 
     return (
-        <React.Fragment>
+        <>
             <Head>
                 <title>Bravo</title>
                 <meta
@@ -30,6 +30,7 @@ const MyApp = (props) => {
                 <Component {...pageProps} />
             </Layout>
         </React.Fragment>
+        </>
     )
 }
 
