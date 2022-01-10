@@ -7,6 +7,12 @@
     box-shadow: 3px 3px 5px 6px #ccc;
 }
 
+
+.navcontainer.darkmode {
+    box-shadow: none;
+    border-bottom: 1px solid white;
+}
+
 .company {
     flex-grow: 4;
     letter-spacing: 5px;

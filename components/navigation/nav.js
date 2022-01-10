@@ -6,20 +6,24 @@ import { GoX } from 'react-icons/go'
 import { useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import { BsSun, BsMoon } from 'react-icons/bs'
+import { ThemeContext, themes } from './contexts/ThemeContext'
 
-const Navigation = () => {
+const Navigation = ({ toggleDarkMode, darkMode }) => {
     const [menuVisible, setMenuVisible] = useState(false)
 
     const toggleMenu = () => {
-        console.log('1', menuVisible)
         setMenuVisible((prevMenuVisible) => !prevMenuVisible)
-        console.log('2', menuVisible)
     }
 
     const router = useRouter()
 
     return (
-        <div className={styles.navcontainer}>
+        <div
+            className={clsx(styles.navcontainer, {
+                [styles.darkmode]: darkMode,
+            })}
+        >
             <div className={styles.company}>
                 <Link href="/">BRAVO</Link>
             </div>
@@ -28,7 +32,8 @@ const Navigation = () => {
                     return (
                         <span
                             className={clsx(styles.item, {
-                                [styles.test]: router.pathname === item.url,
+                                [styles.activelink]:
+                                    router.pathname === item.url,
                             })}
                             key={index}
                         >
@@ -43,6 +48,33 @@ const Navigation = () => {
                     size="20"
                     onClick={() => toggleMenu()}
                 />
+                {darkMode ? (
+                    <BsSun size="20" onClick={toggleDarkMode} />
+                ) : (
+                    <BsMoon size="20" onClick={toggleDarkMode} />
+                )}
+                <ThemeContext.Consumer>
+                    {({ changeTheme }) => (
+                        <Button
+                            color="link"
+                            onClick={() => {
+                                setDarkMode(!darkMode)
+                                changeTheme(
+                                    darkMode ? themes.light : themes.dark
+                                )
+                            }}
+                        >
+                            <i
+                                className={
+                                    darkMode ? 'fas fa-sun' : 'fas fa-moon'
+                                }
+                            ></i>
+                            <span className="d-lg-none d-md-block">
+                                Switch mode
+                            </span>
+                        </Button>
+                    )}
+                </ThemeContext.Consumer>
             </div>
             <div
                 className={clsx(styles.mobilenav, {

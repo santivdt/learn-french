@@ -4,6 +4,19 @@
     flex-direction: column;
 }
 
+.container.darkmode {
+    background: #121212;
+    color: white;
+
+    * {
+        a:hover {
+            color: #90ee90;
+        }
+    }
+
+
+}
+
 .content {
     padding: 1rem;
     display: flex;
