@@ -4,12 +4,12 @@ import Head from 'next/head'
 import '../styles/globals.scss'
 import Layout from '../components/layout/index.js'
 import CoockieBar from '../components/Coockiebar'
+import { useEffect } from 'react'
 
 const MyApp = (props) => {
     const { Component, pageProps } = props
 
-    React.useEffect(() => {
-        // Remove the server-side injected CSS.
+    useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side')
         if (jssStyles) {
             jssStyles.parentElement.removeChild(jssStyles)

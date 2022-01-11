@@ -3,18 +3,28 @@ import styles from './index.module.scss'
 import { GoThreeBars } from 'react-icons/go'
 import { menuItems } from './menuitems.js'
 import { GoX } from 'react-icons/go'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import { BsSun, BsMoon } from 'react-icons/bs'
 
 const Navigation = () => {
     const [menuVisible, setMenuVisible] = useState(false)
+    const [darkMode, setDarkMode] = useState(false)
+
+    const toggleDarkMode = () => {
+        setDarkMode((prevDarkMode) => !prevDarkMode)
+    }
 
     const toggleMenu = () => {
-        console.log('1', menuVisible)
         setMenuVisible((prevMenuVisible) => !prevMenuVisible)
-        console.log('2', menuVisible)
     }
+
+    useEffect(() => {
+        darkMode
+            ? document.querySelector('body').classList.add('darkmode')
+            : document.querySelector('body').classList.remove('darkmode')
+    }, [darkMode])
 
     const router = useRouter()
 
@@ -44,6 +54,9 @@ const Navigation = () => {
                     size="20"
                     onClick={() => toggleMenu()}
                 />
+                <span onClick={toggleDarkMode}>
+                    {darkMode ? <BsSun size="20" /> : <BsMoon size="20" />}
+                </span>
             </div>
             <div
                 className={clsx(styles.mobilenav, {

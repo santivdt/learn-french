@@ -111,7 +111,7 @@ const Home = () => {
                                     className={styles.flag}
                                 />
                             )}
-                            {showEnglish ? english : french}
+                            <span>{showEnglish ? english : french}</span>
                         </div>
                     )
                 })}
