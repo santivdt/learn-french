@@ -3,7 +3,7 @@ import firebase from 'firebase'
 import initFirebase from '../firebase/initFirebase'
 import { Snackbar } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
+import { MdOutlineClear } from 'react-icons/md'
 
 const Editdata = () => {
     const [newItem, setNewItem] = useState({
@@ -25,7 +25,7 @@ const Editdata = () => {
                 color="inherit"
                 onClick={handleClose}
             >
-                <CloseIcon fontSize="small" />
+                <MdOutlineClear size="20" />
             </IconButton>
         </>
     )

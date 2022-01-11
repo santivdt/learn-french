@@ -9,8 +9,6 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@emotion/react": "^11.5.0",
-        "@emotion/styled": "^11.3.0",
         "@mui/material": "^5.0.4",
         "clsx": "^1.1.1",
         "dotenv": "^10.0.0",

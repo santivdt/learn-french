@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
-import WarningDialog from '../components/Dialog.js'
 import styles from '../styles/editdata.module.scss'
+import Dialog from '../components/dialog/index.js'
 
 const Editdata = () => {
     const [words, setWords] = useState([])
@@ -85,6 +85,8 @@ const Editdata = () => {
             .catch((error) => {
                 console.error('Error removing document: ', error)
             })
+
+        getWords()
     }
 
     const handleChange = (event) => {
@@ -123,15 +125,16 @@ const Editdata = () => {
 
     return (
         <>
-            <WarningDialog
+            <Dialog
+                show={warningDialogOpen}
                 title="Are you sure?"
-                cancelDialog={cancelDialog}
-                confirmDialog={remove}
-                state={warningDialogOpen}
+                confirm={remove}
+                cancel={cancelDialog}
+                description="Are you sure you want to delete this item?"
+                confirmButton="Delete"
+                cancelButton="Cancel"
                 id={itemToDelete}
-            >
-                Are you sure you want to delete this item?
-            </WarningDialog>
+            />
             <input
                 id="standard-basic"
                 label="Search"

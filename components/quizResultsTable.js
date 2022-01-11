@@ -1,6 +1,4 @@
-import ClearIcon from '@mui/icons-material/Clear'
-import CheckIcon from '@mui/icons-material/Check'
-import { red, green } from '@mui/material/colors'
+import { MdOutlineClear, MdOutlineCheck } from 'react-icons/md'
 
 const QuizResultsTable = ({ data, answersGivenByUser }) => {
     return (
@@ -19,11 +17,11 @@ const QuizResultsTable = ({ data, answersGivenByUser }) => {
                         <td>
                             {answersGivenByUser[index] ==
                                 data[index].french && (
-                                <CheckIcon sx={{ color: green[500] }} />
+                                <MdOutlineCheck size="20" color="green" />
                             )}
                             {answersGivenByUser[index] !==
                                 data[index].french && (
-                                <ClearIcon sx={{ color: red[500] }} />
+                                <MdOutlineClear size="20" color="red" />
                             )}
                         </td>
                         <td>{data[index].english}</td>
