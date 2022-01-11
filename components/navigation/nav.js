@@ -26,6 +26,14 @@ const Navigation = () => {
             : document.querySelector('body').classList.remove('darkmode')
     }, [darkMode])
 
+    useEffect(() => {
+        const userDarkMode = window.matchMedia(
+            '(prefers-color-scheme: dark)'
+        ).matches
+
+        userDarkMode ? setDarkMode(true) : setDarkMode(false)
+    }, [])
+
     const router = useRouter()
 
     return (
