@@ -28,7 +28,8 @@ const Navigation = () => {
                     return (
                         <span
                             className={clsx(styles.item, {
-                                [styles.test]: router.pathname === item.url,
+                                [styles.activelink]:
+                                    router.pathname === item.url,
                             })}
                             key={index}
                         >

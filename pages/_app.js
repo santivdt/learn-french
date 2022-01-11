@@ -29,7 +29,6 @@ const MyApp = (props) => {
                 <CoockieBar />
                 <Component {...pageProps} />
             </Layout>
-        </React.Fragment>
         </>
     )
 }
