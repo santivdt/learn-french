@@ -1,9 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import firebase from 'firebase'
 import initFirebase from '../firebase/initFirebase'
-import { Snackbar } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import { MdOutlineClear } from 'react-icons/md'
+import Snackbar from '../components/Snackbar'
 
 const Editdata = () => {
     const [newItem, setNewItem] = useState({
@@ -11,24 +9,7 @@ const Editdata = () => {
         french: '',
     })
 
-    const [status, setStatus] = useState({ open: false, text: null })
-
-    const handleClose = () => {
-        setStatus({ open: false, text: null })
-    }
-
-    const action = (
-        <>
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                <MdOutlineClear size="20" />
-            </IconButton>
-        </>
-    )
+    const snackbarRef = useRef(null)
 
     const addData = async () => {
         initFirebase()
@@ -43,7 +24,7 @@ const Editdata = () => {
                     time_stamp: firebase.firestore.Timestamp.now(),
                 })
                 .then(
-                    setStatus({ open: true, text: 'Your item was added!' }),
+                    snackbarRef.current.show(),
                     setNewItem({
                         english: '',
                         french: '',
@@ -64,11 +45,9 @@ const Editdata = () => {
     return (
         <>
             <Snackbar
-                open={status.open}
-                autoHideDuration={3000}
-                onClose={handleClose}
-                message={status.text}
-                action={action}
+                type="success"
+                message="Data succesfully added!"
+                ref={snackbarRef}
             />
             <input
                 id="english"

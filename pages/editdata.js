@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
 import styles from '../styles/editdata.module.scss'
-import Dialog from '../components/dialog/index.js'
+import Dialog from '../components/Dialog/index.js'
+import Snackbar from '../components/Snackbar/index.js'
 
 const Editdata = () => {
     const [words, setWords] = useState([])
@@ -17,12 +18,7 @@ const Editdata = () => {
         setSearch(event.currentTarget.value)
     }
 
-    const showAlert = () => {
-        setStatus('Your item has been updated')
-        setTimeout(() => {
-            setStatus(null)
-        }, 2000)
-    }
+    const snackbarRef = useRef(null)
 
     const edit = (id) => {
         const newWords = words.map((item) => ({
@@ -50,7 +46,7 @@ const Editdata = () => {
                 .set({ english: editItem.english, french: editItem.french })
 
             setLoading(false)
-            showAlert()
+            snackbarRef.current.show()
             getWords()
         } catch (error) {
             console.log(error)
@@ -85,8 +81,6 @@ const Editdata = () => {
             .catch((error) => {
                 console.error('Error removing document: ', error)
             })
-
-        getWords()
     }
 
     const handleChange = (event) => {
@@ -135,6 +129,11 @@ const Editdata = () => {
                 cancelButton="Cancel"
                 id={itemToDelete}
             />
+            <Snackbar
+                type="success"
+                message="Data succesfully edited!"
+                ref={snackbarRef}
+            />
             <input
                 id="standard-basic"
                 label="Search"
@@ -144,7 +143,6 @@ const Editdata = () => {
                 value={search}
                 placeholder="Search ..."
             />
-            {status && <span className={styles.status}>{status}</span>}
             <table className={styles.table}>
                 <thead>
                     <tr>
