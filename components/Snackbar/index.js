@@ -39,4 +39,6 @@ const Snackbar = forwardRef(({ type, message }, ref) => {
     )
 })
 
+Snackbar.displayName = 'Snackbar'
+
 export default Snackbar

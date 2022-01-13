@@ -102,6 +102,7 @@ const Home = () => {
                                     width="20"
                                     height="20"
                                     className={styles.flag}
+                                    alt="flag"
                                 />
                             ) : (
                                 <img
@@ -109,6 +110,7 @@ const Home = () => {
                                     width="20"
                                     height="20"
                                     className={styles.flag}
+                                    alt="flag"
                                 />
                             )}
                             <span>{showEnglish ? english : french}</span>
