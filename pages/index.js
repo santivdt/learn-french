@@ -66,7 +66,7 @@ const Home = () => {
     }, [])
 
     return (
-        <div className="sidebarcontainer">
+        <>
             <div className="sidebar">
                 <button
                     onClick={resetCards}
@@ -87,7 +87,7 @@ const Home = () => {
                     {!language ? 'En - Fr' : 'Fr - En'}
                 </button>
             </div>
-            <div className={clsx('maincontent-sidebar', styles.grid)}>
+            <div className={clsx('maincontent', styles.grid)}>
                 {loading && <div>Loading...</div>}
                 {words.map(({ id, english, french, showEnglish }) => {
                     return (
@@ -116,7 +116,7 @@ const Home = () => {
                     )
                 })}
             </div>
-        </div>
+        </>
     )
 }
 

@@ -8,12 +8,14 @@ body {
         --color-background-main: #FAF9F6;
         --color-link-primary: darkgreen;
         --color-card-background: white;
-        --color-button-primary: #405cf5;
+        --color-button-primary: #1D5EFF;
         --color-button-second: white;
         --color-error: #D84646;
         --color-warning:  #F68B1C;
         --color-information:#1E95D6;
-        --color-succes: #4E9A51;;
+        --color-succes: #4E9A51;
+        --color-textfield-background: #f5f5dc;
+        --color-table-secondary: rgb(222, 222, 224);
 
 
 
@@ -25,12 +27,14 @@ body {
 
 
 body.darkmode {
-    --color-background-main: #121212;
+    --color-background-main: #23242A;
     --color-text-primary: #FAF9F6;
-    --color-link-primary: lightgreen;
-    --color-card-background: darkblue;
-    --color-button-primary: navy;
+    --color-link-primary: #fae494;
+    --color-card-background: #323741;
+    --color-button-primary: #1D5EFF;
     --color-button-second: lightblue;
+    --color-textfield-background: #323741;
+    --color-table-secondary: rgb(59, 59, 61);
 
     
     
@@ -61,7 +65,7 @@ button {
     border-width: 0;
     box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
         rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
-    color: var(--color-button-second);
+    color: white;
     cursor: pointer;
     height: 3.2em;
     margin: 12px 0 0;
@@ -69,11 +73,13 @@ button {
     padding: 0.8em;
     text-align: center;
     letter-spacing: 1px;
+    border: 1px solid var(--color-button-primary);
 
     &:hover {
-        background-color: var(--color-button-second);
-        color: var(--color-button-primary);
-    }
+        background-color: var(--color-background-main);
+        color: var(--color-text-primary);
+        border-color: var(--color-text-primary);
+    }    
 }
 
 button[disabled] {
@@ -92,14 +98,15 @@ button.mb {
 }
 
 button.outline {
-    background-color: var(--color-button-second);
-    border: 1px solid var(--color-button-primary);
-    color: var(--color-button-primary);
+    background-color: var(--color-main-background);
+    border: 1px solid var(--color-text-primary);
+    color: var(--color-text-primary);
 
     &:hover {
-        background-color: var(--color-button-primary);
-        color: white;
+        color: var(--color-button-primary);
+        border: 1px solid var(--color-button-primary);
     }
+
 }
 
 button.contained {
@@ -107,34 +114,18 @@ button.contained {
 }
 
 .textfield-input {
-    height: 2rem;
+    background-color: var(--color-textfield-background);
+    height: 2.5rem;
     margin-bottom: 1em;
-    width: 50%;
-    border-radius:5px;
-    border: 1px solid black;
+    border-radius: 10px;
+    border: 1px solid var(--color-textfield-background);
     padding: 1em;
+    color: var(--color-text-primary);
 }
 
-/* ============================================================================================================================*/
-/* ============================================================== UTILITY ========================================================*/
-/* ============================================================================================================================*/
-
-.flex-column {
+.form {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.container-center {
-    display: flex;
-    justify-content: center;
-    max-width: 80%;
-
-    &.flex-column {
-        justify-content: flex-start;
-        align-items: center;
-    }
-}
+    flex-direction: column;}
 
 /* ============================================================================================================================*/
 /* ============================================================== TABLE ========================================================*/
@@ -142,16 +133,28 @@ button.contained {
 
 table {
     border-spacing: 0px;
+    width: 100%;
+    
 }
 
 thead {
     text-align: left;
-    background-color: var(--color-button-primary);
-    color: white;
+    background-color: #fae494;
+    color: #23242A;
+    
 }
 
 th {
-    padding: 1rem 2rem;
+    padding: .8rem 2rem;
+    
+}
+
+tr {
+    &:hover {
+        background-color: #fae494;
+        color: #23242A;
+
+    }
 }
 
 th:not(:first-of-type) {
@@ -159,13 +162,19 @@ th:not(:first-of-type) {
 }
 
 tr:nth-of-type(even) {
-    background-color: rgba(137, 217, 240, 0.3);
+    background-color: var(--color-table-secondary);
+
+    &:hover {
+        background-color: #fae494;
+        color: #23242A;
+    }
 }
 
 td {
-    padding: 0.8rem 0.5em;
+    padding: 0.5rem 0;
     button {
         margin: 0;
+        width: 100%;
     }
     margin: 0;
 
@@ -178,11 +187,8 @@ td {
 /* ============================================================== LAYOUT WITH SIDEBAR ========================================================*/
 /* ============================================================================================================================*/
 
-.sidebarcontainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-background-main)
+.maincontent {
+    grid-area: s c c c e;
     
 }
 
@@ -197,17 +203,7 @@ td {
     }
 }
 
-.maincontent-sidebar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    flex-grow: 1;
-}
-
 @media (min-width: 700px) {
-    .sidebarcontainer {
-        flex-direction: row;
-    }
 
     .sidebar {
         flex-direction: column;
@@ -219,12 +215,15 @@ td {
         }
     }
 
-}
-
-@media (min-width: 1400px) {
-    .sidebar {
-        flex-basis: 20%;
+    .maincontent {
+        grid-area: c;
     }
 
-    
+}
+
+
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }

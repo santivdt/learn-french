@@ -2,18 +2,22 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
+    justify-content: start;
+    align-content: start;
 }
 
 .card {
     display: flex;
     padding: 1rem;
     justify-content: center;
+    align-items: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px; 
     position: relative;
-    align-items: center;
     color: var(--color-text-primary);
-    background-color: var(--color-card-background)
+    background-color: var(--color-card-background);
+    max-height: 200px;
+
 }
 
 .flag {

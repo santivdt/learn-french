@@ -43,40 +43,42 @@ const Editdata = () => {
     }
 
     return (
-        <>
+        <div className="maincontent">
             <Snackbar
                 type="success"
                 message="Data succesfully added!"
                 ref={snackbarRef}
             />
-            <input
-                id="english"
-                name="english"
-                value={newItem.english}
-                onChange={handleData}
-                className="textfield-input"
-                placeholder="English.."
-            />
-            <input
-                id="french"
-                name="french"
-                value={newItem.french}
-                onChange={handleData}
-                className="textfield-input"
-                placeholder="French"
-            />
-            <button
-                disabled={
-                    newItem.french.length < 1 && newItem.french.length < 1
-                }
-                className="contained"
-                onClick={() => {
-                    addData()
-                }}
-            >
-                Add
-            </button>
-        </>
+            <div className="form">
+                <input
+                    id="english"
+                    name="english"
+                    value={newItem.english}
+                    onChange={handleData}
+                    className="textfield-input"
+                    placeholder="English.."
+                />
+                <input
+                    id="french"
+                    name="french"
+                    value={newItem.french}
+                    onChange={handleData}
+                    className="textfield-input"
+                    placeholder="French"
+                />
+                <button
+                    disabled={
+                        newItem.french.length < 1 && newItem.french.length < 1
+                    }
+                    className="contained"
+                    onClick={() => {
+                        addData()
+                    }}
+                >
+                    Add
+                </button>
+            </div>
+        </div>
     )
 }
 

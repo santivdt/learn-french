@@ -3,25 +3,42 @@
 
     button {
         width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         font-size: 1rem;
+        
     }
-}
 
-.outerbar {
-    width: 100%;
-    height: 20px;
-    border: 1px solid black;
-    border-radius: 50px;
-}
 
-.innerbar {
-    width: 50%;
-    background-color: #405cf5;
-    height: 100%;
-    border-radius: 50px;
-    color: white;
-    padding-left: 10px;
+    .quizquestion {
+        background-color: #fae494;
+        border-radius: 20px;
+        height: 300px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        color: #23242A;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        box-shadow: 0px 5px 10px rgb(0, 0, 0, 0.3);
+    }
+
+    .counter {
+        position: absolute;
+        background-color: white;
+        top: -1em;
+        padding: 0.5em 1em;
+        border-radius: 20px;
+        box-shadow: 0 10px 10px rgb(0, 0, 0, 0.3);
+        font-weight: 600;
+
+    }
+
+    .results {
+        text-align: center;
+
+        table {
+            text-align: left;
+        }
+    }
 }

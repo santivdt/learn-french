@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import '../styles/globals.scss'
-import Layout from '../components/layout/index.js'
+import Layout from '../components/Layout/index.js'
 import CoockieBar from '../components/Coockiebar'
 import { useEffect } from 'react'
 

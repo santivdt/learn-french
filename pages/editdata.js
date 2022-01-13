@@ -1,9 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
-import styles from '../styles/editdata.module.scss'
 import Dialog from '../components/Dialog/index.js'
 import Snackbar from '../components/Snackbar/index.js'
+import {
+    MdModeEditOutline,
+    MdDeleteOutline,
+    MdDoneOutline,
+} from 'react-icons/md'
+import styles from '../styles/editdata.module.scss'
 
 const Editdata = () => {
     const [words, setWords] = useState([])
@@ -134,91 +139,101 @@ const Editdata = () => {
                 message="Data succesfully edited!"
                 ref={snackbarRef}
             />
-            <input
-                id="standard-basic"
-                label="Search"
-                variant="standard"
-                className={styles.search}
-                onChange={handleSearch}
-                value={search}
-                placeholder="Search ..."
-            />
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>English</th>
-                        <th>French</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {words
-                        .filter(
-                            ({ english, french }) =>
-                                english
-                                    .toLowerCase()
-                                    .includes(search.toLowerCase()) ||
-                                french
-                                    .toLowerCase()
-                                    .includes(search.toLowerCase())
-                        )
-                        .map(({ id, english, french, isEditing }) => (
-                            <tr
-                                key={id}
-                                sx={{
-                                    '&:last-child td, &:last-child th': {
-                                        border: 0,
-                                    },
-                                }}
-                            >
-                                <td>
-                                    {isEditing ? (
-                                        <input
-                                            type="text"
-                                            name="english"
-                                            value={editItem.english}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        english
-                                    )}
-                                </td>
-                                <td>
-                                    {isEditing ? (
-                                        <input
-                                            type="text"
-                                            name="french"
-                                            value={editItem.french}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        french
-                                    )}
-                                </td>
-                                <td>
-                                    {isEditing ? (
-                                        <button onClick={() => save(id)}>
-                                            Save
-                                        </button>
-                                    ) : (
-                                        <button onClick={() => edit(id)}>
-                                            Edit
-                                        </button>
-                                    )}
-                                </td>
-                                <td>
-                                    <button
-                                        disabled={isEditing}
-                                        onClick={() => openDialog(id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
+            <div className="maincontent">
+                <input
+                    id="standard-basic"
+                    label="Search"
+                    variant="standard"
+                    className="textfield-input"
+                    onChange={handleSearch}
+                    value={search}
+                    placeholder="Search ..."
+                />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>English</th>
+                            <th>French</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {words
+                            .filter(
+                                ({ english, french }) =>
+                                    english
+                                        .toLowerCase()
+                                        .includes(search.toLowerCase()) ||
+                                    french
+                                        .toLowerCase()
+                                        .includes(search.toLowerCase())
+                            )
+                            .map(({ id, english, french, isEditing }) => (
+                                <tr
+                                    key={id}
+                                    sx={{
+                                        '&:last-child td, &:last-child th': {
+                                            border: 0,
+                                        },
+                                    }}
+                                >
+                                    <td>
+                                        {isEditing ? (
+                                            <input
+                                                type="text"
+                                                name="english"
+                                                value={editItem.english}
+                                                onChange={handleChange}
+                                            />
+                                        ) : (
+                                            english
+                                        )}
+                                    </td>
+                                    <td>
+                                        {isEditing ? (
+                                            <input
+                                                type="text"
+                                                name="french"
+                                                value={editItem.french}
+                                                onChange={handleChange}
+                                            />
+                                        ) : (
+                                            french
+                                        )}
+                                    </td>
+                                    <td className={styles.icons}>
+                                        {isEditing ? (
+                                            <MdDoneOutline
+                                                size="20"
+                                                className="btn outline"
+                                                onClick={() => save(id)}
+                                            >
+                                                Save
+                                            </MdDoneOutline>
+                                        ) : (
+                                            <MdModeEditOutline
+                                                size="20"
+                                                className="btn outline"
+                                                onClick={() => edit(id)}
+                                            >
+                                                Edit
+                                            </MdModeEditOutline>
+                                        )}
+                                        <MdDeleteOutline
+                                            size="20"
+                                            color="#F68B1C"
+                                            disabled={isEditing}
+                                            className="btn outline"
+                                            onClick={() => openDialog(id)}
+                                        >
+                                            Delete
+                                        </MdDeleteOutline>
+                                    </td>
+                                </tr>
+                            ))}
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }
