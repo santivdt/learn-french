@@ -4,6 +4,7 @@ import initFirebase from '../firebase/initFirebase.js'
 import firebase from 'firebase'
 import clsx from 'clsx'
 import { shuffleArray } from '../utils/helpers'
+import Image from 'next/image'
 
 const Home = () => {
     const [loading, setLoading] = useState(false)
@@ -96,23 +97,23 @@ const Home = () => {
                             key={id}
                             onClick={() => handleChange(id)}
                         >
-                            {showEnglish ? (
-                                <img
-                                    src="/english.png"
-                                    width="20"
-                                    height="20"
-                                    className={styles.flag}
-                                    alt="flag"
-                                />
-                            ) : (
-                                <img
-                                    src="/french.png"
-                                    width="20"
-                                    height="20"
-                                    className={styles.flag}
-                                    alt="flag"
-                                />
-                            )}
+                            <div className={styles.flag}>
+                                {showEnglish ? (
+                                    <Image
+                                        src="/english.png"
+                                        width="20"
+                                        height="20"
+                                        alt="flag"
+                                    />
+                                ) : (
+                                    <Image
+                                        src="/french.png"
+                                        width="20"
+                                        height="20"
+                                        alt="flag"
+                                    />
+                                )}
+                            </div>
                             <span>{showEnglish ? english : french}</span>
                         </div>
                     )
