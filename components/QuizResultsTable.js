@@ -1,6 +1,7 @@
 import { MdOutlineClear, MdOutlineCheck } from 'react-icons/md'
 
 const QuizResultsTable = ({ data, answersGivenByUser }) => {
+    console.log('test')
     return (
         <table>
             <thead>

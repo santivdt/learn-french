@@ -1,0 +1,31 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    padding: 1rem;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 1em;
+}
+
+@media (min-width: 700px) {
+    .content {
+        padding: 2rem;
+        grid-template-columns: 1fr 4fr ;
+        grid-template-areas: 
+            "s c";
+    }
+}
+
+@media (min-width: 1000px) {
+    .content {
+        grid-template-columns: 1fr 3fr 1fr ;
+        grid-template-areas: 
+            "s c e";
+    }
+}
