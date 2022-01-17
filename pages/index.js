@@ -10,6 +10,8 @@ const Home = () => {
     const [loading, setLoading] = useState(false)
     const [words, setWords] = useState([])
     const [language, setLanguage] = useState(true)
+    const [showAnswer, setShowAnswer] = useState(false)
+    const [answer, setAnswer] = useState(null)
 
     const changeOrder = () => {
         const newWords = [...shuffleArray(words)]
@@ -55,10 +57,49 @@ const Home = () => {
             .collection('words')
             .get()
         querySnapshot.forEach((doc) =>
-            w.push({ id: doc.id, showEnglish: true, ...doc.data() })
+            w.push({
+                id: doc.id,
+                showEnglish: true,
+                ...doc.data(),
+                isCurrentQuestion: false,
+            })
         )
         setWords([...shuffleArray(w)])
         setLoading(false)
+    }
+
+    const automaticQuiz = () => {
+        let randomOrder = []
+        while (randomOrder.length < words.length) {
+            let r = Math.floor(Math.random() * words.length)
+            if (randomOrder.indexOf(r) === -1) randomOrder.push(r)
+        }
+
+        const timer = (ms) => new Promise((res) => setTimeout(res, ms))
+
+        const load = async () => {
+            for (let num of randomOrder) {
+                setWords((oldWords) =>
+                    oldWords.map((word, index) =>
+                        index === num
+                            ? { ...word, isCurrentQuestion: true }
+                            : { ...word, isCurrentQuestion: false }
+                    )
+                )
+
+                // to do how to make sure the last one is cleared?
+                // todo make sur you cant start two quizzes
+                // todo stop quiz possibility
+                await timer(2000)
+                setAnswer(words[num].french)
+                setShowAnswer(true)
+                await timer(500)
+                setAnswer(null)
+                setShowAnswer(false)
+            }
+        }
+
+        load()
     }
 
     useEffect(() => {
@@ -68,6 +109,7 @@ const Home = () => {
 
     return (
         <>
+            {showAnswer && <div className={styles.answer}>{answer}</div>}
             <div className="sidebar">
                 <button
                     onClick={resetCards}
@@ -87,37 +129,53 @@ const Home = () => {
                 >
                     {!language ? 'En - Fr' : 'Fr - En'}
                 </button>
+                <button
+                    className={clsx('outline', 'contained')}
+                    onClick={automaticQuiz}
+                >
+                    Start Quiz
+                </button>
             </div>
             <div className={clsx('maincontent', styles.grid)}>
                 {loading && <div>Loading...</div>}
-                {words.map(({ id, english, french, showEnglish }) => {
-                    return (
-                        <div
-                            className={styles.card}
-                            key={id}
-                            onClick={() => handleChange(id)}
-                        >
-                            <div className={styles.flag}>
-                                {showEnglish ? (
-                                    <Image
-                                        src="/english.png"
-                                        width="20"
-                                        height="20"
-                                        alt="flag"
-                                    />
-                                ) : (
-                                    <Image
-                                        src="/french.png"
-                                        width="20"
-                                        height="20"
-                                        alt="flag"
-                                    />
-                                )}
+                {words.map(
+                    ({
+                        id,
+                        english,
+                        french,
+                        showEnglish,
+                        isCurrentQuestion,
+                    }) => {
+                        return (
+                            <div
+                                className={clsx(styles.card, {
+                                    [styles.activequestion]: isCurrentQuestion,
+                                })}
+                                key={id}
+                                onClick={() => handleChange(id)}
+                            >
+                                <div className={styles.flag}>
+                                    {showEnglish ? (
+                                        <Image
+                                            src="/english.png"
+                                            width="20"
+                                            height="20"
+                                            alt="flag"
+                                        />
+                                    ) : (
+                                        <Image
+                                            src="/french.png"
+                                            width="20"
+                                            height="20"
+                                            alt="flag"
+                                        />
+                                    )}
+                                </div>
+                                <span>{showEnglish ? english : french}</span>
                             </div>
-                            <span>{showEnglish ? english : french}</span>
-                        </div>
-                    )
-                })}
+                        )
+                    }
+                )}
             </div>
         </>
     )
