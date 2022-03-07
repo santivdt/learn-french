@@ -141,9 +141,7 @@ const Editdata = () => {
             />
             <div className="maincontent">
                 <input
-                    id="standard-basic"
                     label="Search"
-                    variant="standard"
                     className="textfield-input"
                     onChange={handleSearch}
                     value={search}

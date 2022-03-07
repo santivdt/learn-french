@@ -5,11 +5,13 @@ import firebase from 'firebase'
 import clsx from 'clsx'
 import { shuffleArray } from '../utils/helpers'
 import Image from 'next/image'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Home = () => {
     const [loading, setLoading] = useState(false)
     const [words, setWords] = useState([])
     const [language, setLanguage] = useState(true)
+    const { data: session } = useSession()
 
     const changeOrder = () => {
         const newWords = [...shuffleArray(words)]
@@ -65,60 +67,67 @@ const Home = () => {
         initFirebase()
         getWords()
     }, [])
-
+    if (session) {
+        return (
+            <>
+                <div className="sidebar">
+                    <button
+                        onClick={resetCards}
+                        className={clsx('mb', 'outline', 'contained')}
+                    >
+                        Reset cards
+                    </button>
+                    <button
+                        className={clsx('mb', 'outline', 'contained')}
+                        onClick={changeOrder}
+                    >
+                        Change order
+                    </button>
+                    <button
+                        className={clsx('outline', 'contained')}
+                        onClick={changeLanguage}
+                    >
+                        {!language ? 'En - Fr' : 'Fr - En'}
+                    </button>
+                </div>
+                <div className={clsx('maincontent', styles.grid)}>
+                    {loading && <div>Loading...</div>}
+                    {words.map(({ id, english, french, showEnglish }) => {
+                        return (
+                            <div
+                                className={styles.card}
+                                key={id}
+                                onClick={() => handleChange(id)}
+                            >
+                                <div className={styles.flag}>
+                                    {showEnglish ? (
+                                        <Image
+                                            src="/english.png"
+                                            width="20"
+                                            height="20"
+                                            alt="flag"
+                                        />
+                                    ) : (
+                                        <Image
+                                            src="/french.png"
+                                            width="20"
+                                            height="20"
+                                            alt="flag"
+                                        />
+                                    )}
+                                </div>
+                                <span>{showEnglish ? english : french}</span>
+                            </div>
+                        )
+                    })}
+                </div>
+            </>
+        )
+    }
     return (
         <>
-            <div className="sidebar">
-                <button
-                    onClick={resetCards}
-                    className={clsx('mb', 'outline', 'contained')}
-                >
-                    Reset cards
-                </button>
-                <button
-                    className={clsx('mb', 'outline', 'contained')}
-                    onClick={changeOrder}
-                >
-                    Change order
-                </button>
-                <button
-                    className={clsx('outline', 'contained')}
-                    onClick={changeLanguage}
-                >
-                    {!language ? 'En - Fr' : 'Fr - En'}
-                </button>
-            </div>
-            <div className={clsx('maincontent', styles.grid)}>
-                {loading && <div>Loading...</div>}
-                {words.map(({ id, english, french, showEnglish }) => {
-                    return (
-                        <div
-                            className={styles.card}
-                            key={id}
-                            onClick={() => handleChange(id)}
-                        >
-                            <div className={styles.flag}>
-                                {showEnglish ? (
-                                    <Image
-                                        src="/english.png"
-                                        width="20"
-                                        height="20"
-                                        alt="flag"
-                                    />
-                                ) : (
-                                    <Image
-                                        src="/french.png"
-                                        width="20"
-                                        height="20"
-                                        alt="flag"
-                                    />
-                                )}
-                            </div>
-                            <span>{showEnglish ? english : french}</span>
-                        </div>
-                    )
-                })}
-            </div>
+            Not signed in <br />
+            <button onClick={() => signIn()}>Sign in</button>
         </>
     )
 }

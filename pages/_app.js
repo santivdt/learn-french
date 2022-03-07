@@ -5,8 +5,9 @@ import '../styles/globals.scss'
 import Layout from '../components/Layout/index.js'
 import CoockieBar from '../components/Coockiebar'
 import { useEffect } from 'react'
+import { SessionProvider } from 'next-auth/react'
 
-const MyApp = (props) => {
+const MyApp = ({ session }, props) => {
     const { Component, pageProps } = props
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const MyApp = (props) => {
     }, [])
 
     return (
-        <>
+        <SessionProvider session={session}>
             <Head>
                 <title>Bravo</title>
                 <meta
@@ -29,7 +30,7 @@ const MyApp = (props) => {
                 <CoockieBar />
                 <Component {...pageProps} />
             </Layout>
-        </>
+        </SessionProvider>
     )
 }
 
